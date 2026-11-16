@@ -6,45 +6,6 @@ LLM-Tune 是一个面向小型语言模型的微调实验项目，支持在不�
 
 <br>
 
-## 文件目录
-
-```text
-LLM-Tune/
-├─ README.md
-├─ README.en.md
-├─ main.py                 # 运行入口
-├─ compare.py              # 生成结果汇总与图表
-├─ requirements.txt        # Python 依赖
-├─ Datasets/               # 数据与判分规则
-│  ├─ calculator/
-│  └─ ToolACE/
-├─ step1_LLM/              # 模型准备与评估
-│  ├─ Models/
-│  ├─ prepare.py
-│  └─ evaluate.py
-├─ step2_SFT/              # 监督微调
-│  ├─ Configs/
-│  └─ train.py
-├─ step3_Tune/             # 微调算法
-│  └─ RL/
-│     ├─ GRPO/
-│     │  ├─ Configs/
-│     │  ├─ run/
-│     │  └─ train.py
-│     └─ PPO/
-│        ├─ Configs/
-│        ├─ run/
-│        └─ train.py
-└─ Outputs/                # 按数据集和模型保存结果
-   └─ calculator/
-      ├─ README.md
-      ├─ README.en.md
-      ├─ DeepSeek-R1-1.5B/
-      └─ Qwen3-0.6B/
-```
-
-<br>
-
 ## 实验入口
 
 ### 模型
@@ -98,3 +59,9 @@ python main.py
 - `step2_SFT/Configs/<模型>/<数据集>.json` 保存 SFT 参数。
 - `step3_Tune/RL/<算法>/Configs/<模型>/<数据集>.json` 保存各 RL 算法的参数。
 - `Outputs/<数据集>/<模型>/` 保存各阶段的评估、日志、权重和图表，`Outputs/<数据集>/README.md` 汇总该数据集的实验结果。
+
+<br>
+
+## 许可证
+
+第三方模型和数据集遵循各自的许可条款。项目自有代码采用 [MIT 许可证](LICENSE)。

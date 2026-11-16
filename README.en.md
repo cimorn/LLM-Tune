@@ -6,45 +6,6 @@ LLM-Tune is a project for fine-tuning small language models. It lets you compare
 
 <br>
 
-## Project structure
-
-```text
-LLM-Tune/
-├─ README.md
-├─ README.en.md
-├─ main.py                 # Experiment entry point
-├─ compare.py              # Generate result summaries and charts
-├─ requirements.txt        # Python dependencies
-├─ Datasets/               # Datasets and scoring rules
-│  ├─ calculator/
-│  └─ ToolACE/
-├─ step1_LLM/              # Model setup and evaluation
-│  ├─ Models/
-│  ├─ prepare.py
-│  └─ evaluate.py
-├─ step2_SFT/              # Supervised fine-tuning
-│  ├─ Configs/
-│  └─ train.py
-├─ step3_Tune/             # Fine-tuning algorithms
-│  └─ RL/
-│     ├─ GRPO/
-│     │  ├─ Configs/
-│     │  ├─ run/
-│     │  └─ train.py
-│     └─ PPO/
-│        ├─ Configs/
-│        ├─ run/
-│        └─ train.py
-└─ Outputs/                # Results by dataset and model
-   └─ calculator/
-      ├─ README.md
-      ├─ README.en.md
-      ├─ DeepSeek-R1-1.5B/
-      └─ Qwen3-0.6B/
-```
-
-<br>
-
 ## Experiment setup
 
 ### Models
@@ -98,3 +59,9 @@ Set `MODEL`, `DATASET`, `ALGORITHM`, and `STEP` in [main.py](main.py). The defau
 - `step2_SFT/Configs/<model>/<dataset>.json` stores the SFT parameters.
 - `step3_Tune/RL/<algorithm>/Configs/<model>/<dataset>.json` stores the parameters for each RL method.
 - `Outputs/<dataset>/<model>/` stores each stage's evaluations, logs, weights, and charts. `Outputs/<dataset>/README.en.md` summarizes the dataset's experiment results in English.
+
+<br>
+
+## License
+
+Third-party models and datasets retain their own license terms. Original project code is available under the [MIT License](LICENSE).
