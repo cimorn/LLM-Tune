@@ -1,0 +1,17 @@
+{
+  "seed": 42,
+  "max_steps": 24,
+  "learning_rate": 3e-06,
+  "value_learning_rate": 0.001,
+  "batch_size": 2,
+  "prompts_per_rollout": 2,
+  "num_generations": 4,
+  "max_prompt_length": 768,
+  "max_completion_length": 128,
+  "ppo_epochs": 2,
+  "gamma": 1,
+  "gae_lambda": 0.95,
+  "cliprange": 0.2,
+  "value_coef": 0.5,
+  "max_grad_norm": 1
+}

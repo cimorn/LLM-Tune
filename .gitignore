@@ -1,0 +1,8 @@
+.venv/
+.cache/
+Outputs/
+step1_LLM/Models/*/weights/
+Datasets/*/raw/
+__pycache__/
+.pytest_cache/
+*.pyc

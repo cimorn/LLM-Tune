@@ -1,0 +1,43 @@
+{
+  "description": "Small source-derived ToolACE subset for offline single-turn, single-call training/evaluation",
+  "source": {
+    "dataset": "Team-ACE/ToolACE",
+    "url": "https://huggingface.co/datasets/Team-ACE/ToolACE",
+    "repository_main_revision_at_retrieval": "6bda777c88d21e5a204703c1ee45597a8fa4f734",
+    "data_access": "Official Hugging Face datasets-server /rows, default/train. Viewer rows are not a pinned raw-file download.",
+    "license": "Apache-2.0",
+    "source_total_rows": 11300,
+    "retrieved_row_count": 500,
+    "viewer_response_sha256": {
+      "rows-0.json": "8657de928d9509729defe15832a1e804c6342c9b3c68837839e49c3f391d5cf5",
+      "rows-100.json": "4c01e2dff64b6815da597421ff1fc6af9f668bb6043c168c281f780196d314fe",
+      "rows-1900.json": "5762c29e5a3ec8e058606236469293b34d2141daa29599651a6b500210ad274b",
+      "rows-2000.json": "fc667cac3454614144a63904c087c92259ae622722e9b0946d74b58b3af4848f",
+      "rows-2100.json": "87bbc91a631772d35a02ae589cac293611b0c87a942cb34170448c18b45b55d0"
+    }
+  },
+  "selection": "Keep direct first-turn one-call examples with at least two offered tools and scalar schema-conforming keyword arguments. Preserve user text and tool descriptions and parameter definitions; normalize the reference call to JSON, omitting tool responses and final assistant text. Deduplicate by normalized request and reference tool name. Shuffle with seed 42 for local splits within the upstream train set.",
+  "reward": "Reward 1 for exact parsed tool and argument value/type match to the reference. No live APIs are executed.",
+  "qwen3_non_thinking_sft_token_limits": {
+    "max_prompt_tokens": 664,
+    "max_completion_tokens_including_eos": 66,
+    "max_total_tokens": 691
+  },
+  "splits": {
+    "train": {
+      "file": "train.jsonl",
+      "count": 36,
+      "sha256": "22fed7fb7fa8af8e1a8a5037a2638529142ecb850f7e67f08d1373134f33db52"
+    },
+    "val": {
+      "file": "val.jsonl",
+      "count": 11,
+      "sha256": "e0f5abbab8f21bfb121a1d085ac2ead2a37b54c0783724e884c4ff9105a5b5dc"
+    },
+    "test_final": {
+      "file": "test_final.jsonl",
+      "count": 12,
+      "sha256": "425641dfb2f84c42193224bc24915f021e7887b1ba71f16c92e6af479da52415"
+    }
+  }
+}

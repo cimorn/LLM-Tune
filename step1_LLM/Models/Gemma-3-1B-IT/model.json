@@ -1,0 +1,8 @@
+{
+  "name": "google/gemma-3-1b-it",
+  "revision": "main",
+  "attn_implementation": "sdpa",
+  "prompt_mode": "user",
+  "chat_template_kwargs": {},
+  "local_path": "step1_LLM/Models/Gemma-3-1B-IT/weights"
+}

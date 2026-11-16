@@ -1,0 +1,21 @@
+{
+  "seed": 42,
+  "max_steps": 64,
+  "learning_rate": 0.0002,
+  "batch_size": 2,
+  "gradient_accumulation_steps": 2,
+  "max_length": 768,
+  "save_at_steps": [
+    16,
+    64
+  ],
+  "lora": {
+    "r": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0,
+    "target_modules": [
+      "q_proj",
+      "v_proj"
+    ]
+  }
+}

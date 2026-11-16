@@ -1,0 +1,25 @@
+{
+  "description": "Calculator tool calls for SFT, GRPO, PPO and evaluation",
+  "splits": {
+    "train": {
+      "file": "train.jsonl",
+      "count": 256,
+      "sha256": "781851ed7ada8ef86b8df6271e7a8e6cec30d41f9345d542adceab8adabad9a6"
+    },
+    "val": {
+      "file": "val.jsonl",
+      "count": 64,
+      "sha256": "9f069448aefcd72396d90516cdcf79f555b94dc09bb64003858b8685906e3d9f"
+    },
+    "test_final": {
+      "file": "test_final.jsonl",
+      "count": 256,
+      "sha256": "4591cadd79eb47c5e01d2c3d896b0c269761f94233db63cd5a64ca3649412282"
+    }
+  },
+  "source": {
+    "train": "original generator seed 42",
+    "val": "original generator seed 42",
+    "test_final": "fresh-20261113, generator seed 20261113, 128 IID and 128 held-out template questions"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "seed": 42,
+  "max_steps": 24,
+  "learning_rate": 3e-06,
+  "batch_size": 2,
+  "gradient_accumulation_steps": 4,
+  "num_generations": 4,
+  "max_prompt_length": 768,
+  "max_completion_length": 128,
+  "beta": 0,
+  "loss_type": "dapo",
+  "scale_rewards": "none"
+}

@@ -1,0 +1,7 @@
+# Requires CUDA-enabled PyTorch in the active Python environment.
+transformers==4.57.1
+trl==0.24.0
+peft==0.17.1
+accelerate==1.11.0
+datasets==4.3.0
+matplotlib==3.11.1
