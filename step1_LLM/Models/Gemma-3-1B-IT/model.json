@@ -1,6 +1,14 @@
 {
   "name": "google/gemma-3-1b-it",
-  "revision": "main",
+  "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+  "download": {
+    "repository": "unsloth/gemma-3-1b-it",
+    "revision": "5b11413a10db4e486ef16a20101fd028f8f2499c",
+    "sha256": {
+      "model.safetensors": "3d4ef8d71c14db7e448a09ebe891cfb6bf32c57a9b44499ae0d1c098e48516b6",
+      "tokenizer.json": "4667f2089529e8e7657cfb6d1c19910ae71ff5f28aa7ab2ff2763330affad795"
+    }
+  },
   "attn_implementation": "sdpa",
   "prompt_mode": "user",
   "chat_template_kwargs": {},

@@ -2,7 +2,7 @@
 
 中文 · [English](README.en.md)
 
-LLM-Tune 是一个面向小型语言模型的微调实验项目，支持在不同模型和数据集上开展不同算法微调(如强化学习，监督学习等)，并对比微调效果。
+小模型 LoRA 实验，支持 SFT、GRPO、PPO 和 DPO。
 
 <br>
 
@@ -17,11 +17,13 @@ LLM-Tune/
 ├─ requirements.txt        # Python 依赖
 ├─ Datasets/               # 数据与判分规则
 │  ├─ calculator/
-│  └─ ToolACE/
+│  ├─ ToolACE/
+│  └─ human_preference/
 ├─ step1_LLM/              # 模型准备与评估
 │  ├─ Models/
 │  ├─ prepare.py
-│  └─ evaluate.py
+│  ├─ evaluate.py
+│  └─ judge_eval.py
 ├─ step2_SFT/              # 监督微调
 │  ├─ Configs/
 │  └─ train.py
@@ -31,16 +33,30 @@ LLM-Tune/
 │     │  ├─ Configs/
 │     │  ├─ run/
 │     │  └─ train.py
-│     └─ PPO/
+│     ├─ PPO/
+│     │  ├─ Configs/
+│     │  ├─ run/
+│     │  └─ train.py
+│     └─ DPO/
 │        ├─ Configs/
 │        ├─ run/
+│        │  ├─ core.py
+│        │  ├─ pairs.py
+│        │  └─ scoring.py
 │        └─ train.py
 └─ Outputs/                # 按数据集和模型保存结果
-   └─ calculator/
-      ├─ README.md
-      ├─ README.en.md
-      ├─ DeepSeek-R1-1.5B/
-      └─ Qwen3-0.6B/
+   ├─ calculator/
+   │  ├─ README.md
+   │  ├─ README.en.md
+   │  ├─ DeepSeek-R1-1.5B/
+   │  ├─ Qwen3-0.6B/
+   │  └─ matrix-v1/
+   ├─ ToolACE-expanded/
+   │  ├─ README.md
+   │  ├─ README.en.md
+   │  └─ report.html
+   └─ human_preference/
+      └─ matrix-v1/
 ```
 
 <br>
@@ -53,16 +69,17 @@ LLM-Tune/
 | :--- | :--- | :--- | :--- |
 | [Qwen3-0.6B](step1_LLM/Models/Qwen3-0.6B/model.json) | 千问 0.6B 模型，本项目关闭思考模式以直接生成工具调用 | 261115 | [Qwen/Qwen3-0.6B](https://huggingface.co/Qwen/Qwen3-0.6B) |
 | [DeepSeek-R1-1.5B](step1_LLM/Models/DeepSeek-R1-1.5B/model.json) | DeepSeek-R1 的 1.5B 推理蒸馏模型，底座是 Qwen2.5-Math-1.5B | 261115 | [deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B) |
-| [Gemma-3-1B-IT](step1_LLM/Models/Gemma-3-1B-IT/model.json) | Google Gemma 3 的 1B 文本指令模型 | 待跑 | [google/gemma-3-1b-it](https://huggingface.co/google/gemma-3-1b-it) |
+| [Gemma-3-1B-IT](step1_LLM/Models/Gemma-3-1B-IT/model.json) | Google Gemma 3 的 1B 文本指令模型 | 261118 | [google/gemma-3-1b-it](https://huggingface.co/google/gemma-3-1b-it) |
 
 <br>
 
 ### 数据集
 
-| 数据集 | 训练任务 | 实验结果 | 来源 |
-| :---: | :--- | :--- | :--- |
-| [calculator](Datasets/calculator/manifest.json) | 为算式和表格题生成可执行的计算器调用。<br>训练 [256 题](Datasets/calculator/train.jsonl) · 验证 [64 题](Datasets/calculator/val.jsonl) · 最终测试 [256 题](Datasets/calculator/test_final.jsonl) | [中文](Outputs/calculator/README.md) · [English](Outputs/calculator/README.en.md) | 项目生成 |
-| [ToolACE 子集](Datasets/ToolACE/manifest.json) | 从候选工具中选择一个，并按用户请求填写参数。<br>训练 [36 题](Datasets/ToolACE/train.jsonl) · 验证 [11 题](Datasets/ToolACE/val.jsonl) · 最终测试 [12 题](Datasets/ToolACE/test_final.jsonl) | 待跑实验 | [Team-ACE/ToolACE](https://huggingface.co/datasets/Team-ACE/ToolACE) |
+| 数据集 | 训练任务 | 实验结果 | 完成日期 | 来源 |
+| :---: | :--- | :--- | :---: | :--- |
+| [Calculator](Datasets/calculator/manifest.json) | 为算式和表格题生成计算器调用。<br>训练 [256 题](Datasets/calculator/train.jsonl) · 验证 [64 题](Datasets/calculator/val.jsonl) · 最终测试 [256 题](Datasets/calculator/test_final.jsonl) | [中文](Outputs/calculator/matrix-v1/README.md) · [English](Outputs/calculator/matrix-v1/README.en.md) | 261115 | LLM-Tune 自建 |
+| [人类偏好](Datasets/human_preference/manifest.json) | 预测人工更偏好回答 A、回答 B，还是平局。<br>训练 [1,536 条](Datasets/human_preference/train.jsonl) · 验证 [256 条](Datasets/human_preference/val.jsonl) | [中文](Outputs/human_preference/matrix-v1/README.md) · [English](Outputs/human_preference/matrix-v1/README.en.md) | 261117 | [Kaggle LLM Classification Finetuning](https://www.kaggle.com/competitions/llm-classification-finetuning) |
+| [ToolACE](Datasets/ToolACE/manifest.json) | 选择工具并填写参数。<br>训练 [694 题](Datasets/ToolACE/train.jsonl) · 验证 [100 题](Datasets/ToolACE/val.jsonl) · 最终测试 [250 题](Datasets/ToolACE/test_final.jsonl) | [中文](Outputs/ToolACE-expanded/README.md) · [English](Outputs/ToolACE-expanded/README.en.md) | 261118 | [Team-ACE/ToolACE](https://huggingface.co/datasets/Team-ACE/ToolACE) |
 
 <br>
 
@@ -73,24 +90,33 @@ LLM-Tune/
 | [SFT](step2_SFT/train.py) | 监督学习 | [Configs](step2_SFT/Configs/) |
 | [GRPO](step3_Tune/RL/GRPO/train.py) | 强化学习 | [Configs](step3_Tune/RL/GRPO/Configs/) |
 | [PPO](step3_Tune/RL/PPO/train.py) | 强化学习 | [Configs](step3_Tune/RL/PPO/Configs/) |
+| [DPO](step3_Tune/RL/DPO/train.py) | 强化学习 | [Configs](step3_Tune/RL/DPO/Configs/) |
 
 <br>
 
 ## 运行
 
-在项目根目录使用 Python 3.11 和支持 CUDA BF16 的 PyTorch 环境。
+使用 Python 3.11 和支持 CUDA BF16 的 PyTorch。
 
 ```bash
 python -m pip install -r requirements.txt
-python main.py --dry-run
-python main.py
+python main.py --dataset calculator --algorithm DPO
+python main.py --dataset calculator --step test --algorithm DPO
 ```
 
-在 [main.py](main.py) 里改 `MODEL`、`DATASET`、`ALGORITHM` 和 `STEP`。默认用 Qwen3-0.6B 跑计算器任务，依次执行基座评估、SFT、GRPO 和 PPO。也可在命令行指定参数，例如 `python main.py --model DeepSeek-R1-1.5B --dataset calculator --step compare` 会在本地实验跑完后，用训练输出重建图表和结果页。
+已有 SFT 时用 `--step 3 --algorithm DPO` 接训。默认 `--algorithm both` 跑 GRPO 和 PPO，`--algorithm all` 再加入 DPO。
 
-`STEP` 取 `1`、`2`、`3`、`all` 或 `compare`。单独运行训练阶段时，会检查并复用已完成的前置结果。`ALGORITHM` 可选 `GRPO`、`PPO` 或 `both`。
+Kaggle 的 `train.csv` 和 `test.csv` 放在 `Datasets/human_preference/raw/`，也可用 `--input-dir` 指定目录。
 
-<br>
+```bash
+python main.py --dataset human_preference --algorithm DPO --train-limit 1536 --val-limit 256
+python main.py --dataset ToolACE --model Qwen3-0.6B --algorithm all
+python main.py --dataset ToolACE --model Qwen3-0.6B --step test --algorithm all
+```
+
+ToolACE 使用已归档的 694/100/250 划分。用 `--model` 选择模型，结果写到 `Outputs/ToolACE/`。
+
+
 
 ## 配置与结果
 

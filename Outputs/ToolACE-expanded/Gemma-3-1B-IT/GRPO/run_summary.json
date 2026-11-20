@@ -1,0 +1,157 @@
+{
+  "stage": "grpo",
+  "status": "completed",
+  "config": {
+    "dataset": "ToolACE",
+    "model": {
+      "name": "google/gemma-3-1b-it",
+      "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+      "download": {
+        "repository": "unsloth/gemma-3-1b-it",
+        "revision": "5b11413a10db4e486ef16a20101fd028f8f2499c",
+        "sha256": {
+          "model.safetensors": "3d4ef8d71c14db7e448a09ebe891cfb6bf32c57a9b44499ae0d1c098e48516b6",
+          "tokenizer.json": "4667f2089529e8e7657cfb6d1c19910ae71ff5f28aa7ab2ff2763330affad795"
+        }
+      },
+      "attn_implementation": "sdpa",
+      "prompt_mode": "user",
+      "chat_template_kwargs": {},
+      "local_path": "step1_LLM/Models/Gemma-3-1B-IT/weights"
+    },
+    "selected_model": "Gemma-3-1B-IT",
+    "seed": 42,
+    "data_sha256": {
+      "train": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+      "val": "ea0db4441165d1382db3d65f83d769c3afc9bb4f930dc65f3d42fe80dccb4732",
+      "test_final": "f211e48230cc7b939a8174c99cf50696b95fa755a882434c5b978edc960b280f"
+    },
+    "eval": {
+      "max_new_tokens": 128
+    },
+    "evaluation": {
+      "split": "val",
+      "seed": 42,
+      "limit": null,
+      "batch_size": 16
+    },
+    "experiment": "ToolACE-expanded-v1",
+    "method": "GRPO",
+    "source_config": "step3_Tune/RL/GRPO/Configs/Gemma-3-1B-IT/ToolACE.json",
+    "grpo": {
+      "max_steps": 48,
+      "learning_rate": 3e-06,
+      "batch_size": 2,
+      "gradient_accumulation_steps": 4,
+      "num_generations": 4,
+      "max_prompt_length": 768,
+      "max_completion_length": 128,
+      "beta": 0,
+      "loss_type": "dapo",
+      "scale_rewards": "none"
+    },
+    "sft_adapter": "Outputs/ToolACE-expanded/Gemma-3-1B-IT/SFT/adapter",
+    "sft_adapter_sha256": "29509e3865abc222b6e48369f92351c4b8b2bb6fa0c9c175cf68e7573b9f67f1"
+  },
+  "actual_grpo": {
+    "max_steps": 48,
+    "learning_rate": 3e-06,
+    "batch_size": 2,
+    "gradient_accumulation_steps": 4,
+    "num_generations": 4,
+    "max_prompt_length": 768,
+    "max_completion_length": 128,
+    "beta": 0,
+    "loss_type": "dapo",
+    "scale_rewards": "none"
+  },
+  "sft_adapter": "Outputs/ToolACE-expanded/Gemma-3-1B-IT/SFT/adapter",
+  "data_path": "Datasets/ToolACE/train.jsonl",
+  "data_sha256": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+  "training_rows": 694,
+  "output": "Outputs/ToolACE-expanded/Gemma-3-1B-IT/GRPO/adapter",
+  "sampling": {
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "repetition_penalty": 1.0,
+    "num_generations": 4
+  },
+  "loss": {
+    "loss_type": "dapo",
+    "scale_rewards": "none",
+    "beta": 0.0,
+    "num_iterations": 1,
+    "epsilon": 0.2
+  },
+  "initial_state_matches_sft": true,
+  "sft_source": {
+    "path": "Outputs/ToolACE-expanded/Gemma-3-1B-IT/SFT/adapter",
+    "stage": "sft",
+    "optimizer_steps": 174,
+    "expected_adapter_sha256": "cca660fde1c335ff001425c75871e05fe0bbf7dfb2202112ad2c94c658bbe59a"
+  },
+  "effective_sampling": {
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "min_p": null,
+    "repetition_penalty": 1.0,
+    "do_sample": true,
+    "num_beams": 1,
+    "no_repeat_ngram_size": 0,
+    "bad_words_ids": null,
+    "suppress_tokens": null,
+    "begin_suppress_tokens": null,
+    "forced_bos_token_id": null,
+    "forced_eos_token_id": null,
+    "max_new_tokens": 128,
+    "eos_token_id": 106,
+    "probe": "Transformers._prepare_generation_config after model-default merge"
+  },
+  "training_seconds": 100.52755649993196,
+  "peak_allocated_gib": 2.525324821472168,
+  "peak_reserved_gib": 3.13671875,
+  "bf16": true,
+  "optimizer_steps": 48,
+  "metrics": {
+    "train_runtime": 100.4026,
+    "train_samples_per_second": 3.825,
+    "train_steps_per_second": 0.478,
+    "total_flos": 0.0,
+    "train_loss": -0.002039657672867179
+  },
+  "update": {
+    "finite_parameters": true,
+    "changed_tensors": 104,
+    "total_trainable_tensors": 104,
+    "trainable_parameters": 745472,
+    "parameter_delta_l2": 0.024538909475686,
+    "before_sha256": "cca660fde1c335ff001425c75871e05fe0bbf7dfb2202112ad2c94c658bbe59a",
+    "after_sha256": "a79d4e3cbd43db6d13605b82b8177e0e9a897d5e11d35a1bcda0f564935e8a96",
+    "nonzero_update": true
+  },
+  "reward": {
+    "generation_calls": 48,
+    "sampled_completions": 384,
+    "groups": 96,
+    "zero_variance_groups": 63,
+    "zero_variance_fraction": 0.65625,
+    "mean_sample_reward": 0.515625,
+    "error_counts": {
+      "ok": 198,
+      "wrong_arguments": 136,
+      "invalid_json": 33,
+      "wrong_tool": 16,
+      "invalid_schema": 1
+    },
+    "sampled_completion_tokens": 7884,
+    "token_observed_samples": 384,
+    "token_count_scope": "actual sampled completion IDs, including EOS; excludes post-EOS padding",
+    "terminated_samples": 384,
+    "truncated_at_limit": 0,
+    "truncated_fraction": 0.0,
+    "reward_and_log_seconds": 0.03550449956674129
+  },
+  "diagnostic": "参数已更新，仍需独立评测"
+}

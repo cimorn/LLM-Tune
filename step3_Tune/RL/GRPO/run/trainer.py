@@ -67,7 +67,7 @@ def train_grpo(config: dict, *, data_path: Path, output: Path, adapter: Path,
         tokenizer.padding_side = "left"
         model.enable_input_require_grads()
         # prompt 已经应用所选模型模板。字符串模式阻止 TRL 二次添加 chat template。
-        prepared = [{"prompt": render_prompt(tokenizer, row, config), "record": row} for row in records]
+        prepared = [{"prompt": render_prompt(tokenizer, row, config), "record": json.dumps(row, ensure_ascii=False, allow_nan=False)} for row in records]
         max_prompt_length = int(cfg.get("max_prompt_length", 768))
         lengths = [len(tokenizer.encode(row["prompt"], add_special_tokens=False)) for row in prepared]
         if max(lengths) > max_prompt_length:
@@ -107,7 +107,12 @@ def train_grpo(config: dict, *, data_path: Path, output: Path, adapter: Path,
             seed=int(config.get("seed", 42)), data_seed=int(config.get("seed", 42)),
             push_to_hub=False, disable_tqdm=True,
         )
-        trainer = GRPOTrainer(model=model, args=train_args, reward_funcs=recorder,
+        def strict_tool_reward(completions, record, **kwargs):
+            # Arrow cannot represent heterogeneous API schemas as one nested struct.
+            records = [json.loads(item) for item in record]
+            return recorder(completions=completions, record=records, **kwargs)
+
+        trainer = GRPOTrainer(model=model, args=train_args, reward_funcs=strict_tool_reward,
                               train_dataset=Dataset.from_list(prepared),
                               processing_class=tokenizer, callbacks=[
                                   FiniteLogCallback(),

@@ -1,0 +1,94 @@
+{
+  "stage": "sft",
+  "status": "completed",
+  "config": {
+    "dataset": "ToolACE",
+    "model": {
+      "name": "google/gemma-3-1b-it",
+      "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+      "download": {
+        "repository": "unsloth/gemma-3-1b-it",
+        "revision": "5b11413a10db4e486ef16a20101fd028f8f2499c",
+        "sha256": {
+          "model.safetensors": "3d4ef8d71c14db7e448a09ebe891cfb6bf32c57a9b44499ae0d1c098e48516b6",
+          "tokenizer.json": "4667f2089529e8e7657cfb6d1c19910ae71ff5f28aa7ab2ff2763330affad795"
+        }
+      },
+      "attn_implementation": "sdpa",
+      "prompt_mode": "user",
+      "chat_template_kwargs": {},
+      "local_path": "step1_LLM/Models/Gemma-3-1B-IT/weights"
+    },
+    "selected_model": "Gemma-3-1B-IT",
+    "seed": 42,
+    "data_sha256": {
+      "train": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+      "val": "ea0db4441165d1382db3d65f83d769c3afc9bb4f930dc65f3d42fe80dccb4732",
+      "test_final": "f211e48230cc7b939a8174c99cf50696b95fa755a882434c5b978edc960b280f"
+    },
+    "eval": {
+      "max_new_tokens": 128
+    },
+    "evaluation": {
+      "split": "val",
+      "seed": 42,
+      "limit": null,
+      "batch_size": 16
+    },
+    "experiment": "ToolACE-expanded-v1",
+    "method": "SFT",
+    "source_config": "step2_SFT/Configs/Gemma-3-1B-IT/ToolACE.json",
+    "lora": {
+      "r": 8,
+      "lora_alpha": 16,
+      "lora_dropout": 0,
+      "target_modules": [
+        "q_proj",
+        "v_proj"
+      ]
+    },
+    "sft": {
+      "max_steps": 174,
+      "learning_rate": 0.0002,
+      "batch_size": 1,
+      "gradient_accumulation_steps": 4,
+      "max_length": 896,
+      "save_at_steps": []
+    }
+  },
+  "actual_sft": {
+    "max_steps": 174,
+    "learning_rate": 0.0002,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 4,
+    "max_length": 896,
+    "save_at_steps": []
+  },
+  "data_path": "Datasets/ToolACE/train.jsonl",
+  "data_sha256": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+  "training_rows": 694,
+  "output": "Outputs/ToolACE-expanded/Gemma-3-1B-IT/SFT/adapter",
+  "training_seconds": 140.02941309998278,
+  "peak_allocated_gib": 3.8871116638183594,
+  "peak_reserved_gib": 12.40234375,
+  "bf16": true,
+  "optimizer_steps": 174,
+  "metrics": {
+    "train_runtime": 139.9204,
+    "train_samples_per_second": 4.974,
+    "train_steps_per_second": 1.244,
+    "train_loss": 0.17595823946269765,
+    "epoch": 1.0
+  },
+  "update": {
+    "finite_parameters": true,
+    "changed_tensors": 104,
+    "total_trainable_tensors": 104,
+    "trainable_parameters": 745472,
+    "parameter_delta_l2": 3.059865424537655,
+    "before_sha256": "2fe4e25c463038f47ef98e2a2df9cb959c700377e8fcc884915334f6a23a457c",
+    "after_sha256": "cca660fde1c335ff001425c75871e05fe0bbf7dfb2202112ad2c94c658bbe59a",
+    "nonzero_update": true
+  },
+  "loss_protocol": "completion-only labels; causal shift handled by model"
+}

@@ -1,0 +1,109 @@
+{
+  "stage": "dpo",
+  "status": "completed",
+  "config": {
+    "dataset": "ToolACE",
+    "model": {
+      "name": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "local_path": "step1_LLM/Models/Qwen3-0.6B/weights",
+      "attn_implementation": "sdpa",
+      "prompt_mode": "system",
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    },
+    "selected_model": "Qwen3-0.6B",
+    "seed": 42,
+    "data_sha256": {
+      "train": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+      "val": "ea0db4441165d1382db3d65f83d769c3afc9bb4f930dc65f3d42fe80dccb4732",
+      "test_final": "f211e48230cc7b939a8174c99cf50696b95fa755a882434c5b978edc960b280f"
+    },
+    "eval": {
+      "max_new_tokens": 128
+    },
+    "evaluation": {
+      "split": "val",
+      "seed": 42,
+      "limit": null,
+      "batch_size": 16
+    },
+    "experiment": "ToolACE-expanded-v1",
+    "method": "DPO",
+    "source_config": "step3_Tune/RL/DPO/Configs/Qwen3-0.6B/ToolACE.json",
+    "dpo": {
+      "max_steps": 48,
+      "learning_rate": 1e-05,
+      "batch_size": 1,
+      "gradient_accumulation_steps": 4,
+      "beta": 0.1,
+      "max_prompt_length": 768,
+      "max_completion_length": 128,
+      "max_grad_norm": 1.0,
+      "save_at_steps": []
+    },
+    "sft_adapter": "Outputs/ToolACE-expanded/Qwen3-0.6B/SFT/adapter",
+    "sft_adapter_sha256": "55479ca1562e3695676e681f259edfb6d975dd6d9bc6bcb0eb087a521893744f"
+  },
+  "actual_dpo": {
+    "max_steps": 48,
+    "learning_rate": 1e-05,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 4,
+    "beta": 0.1,
+    "max_prompt_length": 768,
+    "max_completion_length": 128,
+    "max_grad_norm": 1.0,
+    "save_at_steps": []
+  },
+  "data_path": "Datasets/ToolACE/train.jsonl",
+  "data_sha256": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+  "training_rows": 694,
+  "sft_adapter": "Outputs/ToolACE-expanded/Qwen3-0.6B/SFT/adapter",
+  "sft_adapter_files_sha256": {
+    "adapter_config.json": "8466d8828a0113cee227e12899371c7aeaed5297c8d9f53fdca52848ba50a646",
+    "adapter_model.safetensors": "55479ca1562e3695676e681f259edfb6d975dd6d9bc6bcb0eb087a521893744f"
+  },
+  "output": "Outputs/ToolACE-expanded/Qwen3-0.6B/DPO/adapter",
+  "pairs_sha256": "5ab1de065d3a8e9c21075ffb69c229b8acdc52b7078b4760e19270438cd584c1",
+  "pair_protocol": "verified_reference_vs_deterministic_wrong_call",
+  "loss_protocol": "mean sigmoid DPO: -logsigmoid(beta*((logp_chosen-logp_rejected)-(ref_chosen-ref_rejected)))",
+  "reference_protocol": "all scheduled pairs scored by the untouched SFT policy before any update; immutable cached logps",
+  "probability_protocol": "sum of completion token logps including EOS; prompt/padding masked; no length normalization",
+  "action_space": null,
+  "reference_kl": "implicit reference-relative DPO objective; no additional sampled KL penalty",
+  "sft_source": {
+    "path": "Outputs/ToolACE-expanded/Qwen3-0.6B/SFT/adapter",
+    "stage": "sft",
+    "optimizer_steps": 174,
+    "expected_adapter_sha256": "062dbf3fc355c040020873809e7148380b3b7ee913cf245db79bb70024a31361"
+  },
+  "initial_state_matches_sft": true,
+  "reference_policy_sha256": "062dbf3fc355c040020873809e7148380b3b7ee913cf245db79bb70024a31361",
+  "reference_logps_sha256": "346d3c7544623596a006d6bf6604373417203d9734d7af23ce5aa3886a286d93",
+  "training_schedule_sha256": "4049ea3c85f80f876e27eb84564ebd3592effc831b4b8f527e0453eb626a9d1b",
+  "reference_rows": 192,
+  "optimizer_steps": 48,
+  "update": {
+    "finite_parameters": true,
+    "changed_tensors": 112,
+    "total_trainable_tensors": 112,
+    "trainable_parameters": 1146880,
+    "parameter_delta_l2": 0.2894724975873845,
+    "before_sha256": "062dbf3fc355c040020873809e7148380b3b7ee913cf245db79bb70024a31361",
+    "after_sha256": "49a83b0a7f74493f5b798881e85bcfe935ac8dd42fb0eefbd91816cf31222911",
+    "nonzero_update": true
+  },
+  "reference_seconds": 9.525267499964684,
+  "optimization_seconds": 23.217714999918826,
+  "training_seconds": 32.74298249988351,
+  "training_pair_exposures": 192,
+  "peak_allocated_gib": 4.866726875305176,
+  "peak_reserved_gib": 5.546875,
+  "metrics": {
+    "first_loss": 0.6931471824645996,
+    "last_loss": 0.5462166666984558,
+    "last_reward_margin": 0.33379024267196655
+  }
+}

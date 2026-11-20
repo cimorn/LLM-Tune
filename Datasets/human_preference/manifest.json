@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "source": "https://www.kaggle.com/competitions/llm-classification-finetuning",
+  "inputs": {
+    "train_sha256": "0692154aaf20fc6649090c3f49b6b5dd1e693a765ecb5f0856ae0da5946f5be2",
+    "test_sha256": "4d6a47208951532a0b6bf862a75531806270f4782afc342125fd399682d09957"
+  },
+  "seed": 42,
+  "train_limit": 1536,
+  "val_limit": 256,
+  "split_strategy": "approximately 20% held-out by normalized question; limits applied after splitting",
+  "labeled_count": 57477,
+  "splits": {
+    "train": {
+      "count": 1536,
+      "sha256": "4788c26a6efb8bdecd7d87544f6b684c379f5011b7a6271b6b7c952fe6e0201e",
+      "unique_questions": 1512,
+      "label_counts": {
+        "A": 541,
+        "B": 517,
+        "C": 478
+      }
+    },
+    "val": {
+      "count": 256,
+      "sha256": "fed270dd3f15e77df9f430e2a65b5d038f4d826e0b6f88d44d7b1ef76cb2b727",
+      "unique_questions": 255,
+      "label_counts": {
+        "A": 89,
+        "B": 98,
+        "C": 69
+      }
+    },
+    "test": {
+      "count": 3,
+      "sha256": "b149851965c5edbbd151518d9736b571739e2116ec2849047e980d166358e93a",
+      "unique_questions": 3,
+      "label_counts": null
+    }
+  }
+}

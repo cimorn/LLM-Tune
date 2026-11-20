@@ -1,0 +1,1105 @@
+{
+  "validation_sha256": "fed270dd3f15e77df9f430e2a65b5d038f4d826e0b6f88d44d7b1ef76cb2b727",
+  "validation_count": 256,
+  "validation_question_groups": 255,
+  "target_counts": {
+    "A": 89,
+    "B": 98,
+    "C": 69
+  },
+  "baselines": {
+    "uniform_log_loss": 1.0986122886681098,
+    "always_B_accuracy": 0.3828125,
+    "train_majority_A_accuracy": 0.34765625,
+    "train_prior_log_loss": 1.0942585619065497
+  },
+  "bootstrap": {
+    "unit": "group_id",
+    "seed": 42,
+    "resamples": 10000
+  },
+  "models": {
+    "Qwen3-0.6B": {
+      "runs": {
+        "LLM": {
+          "count": 256,
+          "correct": 89,
+          "accuracy": 0.34765625,
+          "log_loss": 1.498603975836886,
+          "prediction_counts": {
+            "A": 254,
+            "B": 1,
+            "C": 1
+          },
+          "confusion": {
+            "A": {
+              "A": 88,
+              "B": 0,
+              "C": 1
+            },
+            "B": {
+              "A": 97,
+              "B": 1,
+              "C": 0
+            },
+            "C": {
+              "A": 69,
+              "B": 0,
+              "C": 0
+            }
+          },
+          "recall": {
+            "A": 0.9887640449438202,
+            "B": 0.01020408163265306,
+            "C": 0.0
+          },
+          "macro_f1": 0.177773851243239,
+          "wrong_mean_top_probability": 0.684746046444613,
+          "wrong_mean_gold_probability": 0.17655953223409945,
+          "output_argmax_ties": 5,
+          "swap_total_variation": 0.43121966840408277,
+          "swap_agreement": 0.05078125,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 36,
+              "accuracy": 0.375,
+              "log_loss": 1.4463121028772246
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 53,
+              "accuracy": 0.33125,
+              "log_loss": 1.529979099612683
+            }
+          },
+          "predictions": "Qwen3-0.6B/LLM/eval/predictions.jsonl"
+        },
+        "SFT": {
+          "count": 256,
+          "correct": 89,
+          "accuracy": 0.34765625,
+          "log_loss": 1.1057340924162418,
+          "prediction_counts": {
+            "A": 34,
+            "B": 199,
+            "C": 23
+          },
+          "confusion": {
+            "A": {
+              "A": 12,
+              "B": 66,
+              "C": 11
+            },
+            "B": {
+              "A": 15,
+              "B": 74,
+              "C": 9
+            },
+            "C": {
+              "A": 7,
+              "B": 59,
+              "C": 3
+            }
+          },
+          "recall": {
+            "A": 0.1348314606741573,
+            "B": 0.7551020408163265,
+            "C": 0.043478260869565216
+          },
+          "macro_f1": 0.2528852802801194,
+          "wrong_mean_top_probability": 0.36096008398575696,
+          "wrong_mean_gold_probability": 0.3169485213692317,
+          "output_argmax_ties": 139,
+          "swap_total_variation": 0.06387808194267564,
+          "swap_agreement": 0.1328125,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 28,
+              "accuracy": 0.2916666666666667,
+              "log_loss": 1.1092640273272991
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 61,
+              "accuracy": 0.38125,
+              "log_loss": 1.1036161314696074
+            }
+          },
+          "predictions": "Qwen3-0.6B/SFT/eval/predictions.jsonl",
+          "training": {
+            "optimizer_steps": 64,
+            "training_seconds": 45.848880400008056,
+            "peak_allocated_gib": 2.9428653717041016
+          }
+        },
+        "GRPO": {
+          "count": 256,
+          "correct": 69,
+          "accuracy": 0.26953125,
+          "log_loss": 1.137879926012829,
+          "prediction_counts": {
+            "A": 0,
+            "B": 0,
+            "C": 256
+          },
+          "confusion": {
+            "A": {
+              "A": 0,
+              "B": 0,
+              "C": 89
+            },
+            "B": {
+              "A": 0,
+              "B": 0,
+              "C": 98
+            },
+            "C": {
+              "A": 0,
+              "B": 0,
+              "C": 69
+            }
+          },
+          "recall": {
+            "A": 0.0,
+            "B": 0.0,
+            "C": 1.0
+          },
+          "macro_f1": 0.14153846153846153,
+          "wrong_mean_top_probability": 0.42166101916588566,
+          "wrong_mean_gold_probability": 0.2916526054156655,
+          "output_argmax_ties": 0,
+          "swap_total_variation": 0.04814100675866939,
+          "swap_agreement": 1.0,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 24,
+              "accuracy": 0.25,
+              "log_loss": 1.1478844676166773
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 45,
+              "accuracy": 0.28125,
+              "log_loss": 1.13187720105052
+            }
+          },
+          "predictions": "Qwen3-0.6B/GRPO/eval/predictions.jsonl",
+          "training": {
+            "optimizer_steps": 24,
+            "training_seconds": 7.746197099972051,
+            "peak_allocated_gib": 8.114965438842773
+          }
+        },
+        "PPO": {
+          "count": 256,
+          "correct": 74,
+          "accuracy": 0.2890625,
+          "log_loss": 1.1457175761461258,
+          "prediction_counts": {
+            "A": 0,
+            "B": 26,
+            "C": 230
+          },
+          "confusion": {
+            "A": {
+              "A": 0,
+              "B": 7,
+              "C": 82
+            },
+            "B": {
+              "A": 0,
+              "B": 12,
+              "C": 86
+            },
+            "C": {
+              "A": 0,
+              "B": 7,
+              "C": 62
+            }
+          },
+          "recall": {
+            "A": 0.0,
+            "B": 0.12244897959183673,
+            "C": 0.8985507246376812
+          },
+          "macro_f1": 0.2027547020534398,
+          "wrong_mean_top_probability": 0.41502986962978655,
+          "wrong_mean_gold_probability": 0.29384379915811204,
+          "output_argmax_ties": 25,
+          "swap_total_variation": 0.12014829943655059,
+          "swap_agreement": 0.8515625,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 25,
+              "accuracy": 0.2604166666666667,
+              "log_loss": 1.1614986068258684
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 49,
+              "accuracy": 0.30625,
+              "log_loss": 1.1362489577382804
+            }
+          },
+          "predictions": "Qwen3-0.6B/PPO/eval/predictions.jsonl",
+          "training": {
+            "optimizer_steps": 24,
+            "training_seconds": 7.75961989996722,
+            "peak_allocated_gib": 8.296929359436035
+          }
+        },
+        "DPO": {
+          "count": 256,
+          "correct": 82,
+          "accuracy": 0.3203125,
+          "log_loss": 1.1125014163553715,
+          "prediction_counts": {
+            "A": 4,
+            "B": 137,
+            "C": 115
+          },
+          "confusion": {
+            "A": {
+              "A": 1,
+              "B": 44,
+              "C": 44
+            },
+            "B": {
+              "A": 2,
+              "B": 53,
+              "C": 43
+            },
+            "C": {
+              "A": 1,
+              "B": 40,
+              "C": 28
+            }
+          },
+          "recall": {
+            "A": 0.011235955056179775,
+            "B": 0.5408163265306123,
+            "C": 0.4057971014492754
+          },
+          "macro_f1": 0.2589723440727589,
+          "wrong_mean_top_probability": 0.3669803962967862,
+          "wrong_mean_gold_probability": 0.31535716868680097,
+          "output_argmax_ties": 125,
+          "swap_total_variation": 0.06075777666410431,
+          "swap_agreement": 0.28125,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 29,
+              "accuracy": 0.3020833333333333,
+              "log_loss": 1.1216981144001086
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 53,
+              "accuracy": 0.33125,
+              "log_loss": 1.1069833975285293
+            }
+          },
+          "predictions": "Qwen3-0.6B/DPO/eval/predictions.jsonl",
+          "training": {
+            "optimizer_steps": 24,
+            "training_seconds": 7.714913000003435,
+            "peak_allocated_gib": 3.9888463020324707
+          }
+        }
+      },
+      "vs_sft": {
+        "GRPO": {
+          "fixed": 66,
+          "regressed": 86,
+          "changed_choice": 233,
+          "delta_accuracy": -0.078125,
+          "accuracy_ci95": [
+            -0.17254901960784313,
+            0.015565722276264569
+          ],
+          "delta_log_loss": 0.03214583359658718,
+          "log_loss_ci95": [
+            0.013315673492616044,
+            0.05078363099107373
+          ]
+        },
+        "PPO": {
+          "fixed": 59,
+          "regressed": 74,
+          "changed_choice": 208,
+          "delta_accuracy": -0.05859375,
+          "accuracy_ci95": [
+            -0.14787436162451362,
+            0.027450980392156862
+          ],
+          "delta_log_loss": 0.03998348372988403,
+          "log_loss_ci95": [
+            0.018705403173738998,
+            0.06093399191815402
+          ]
+        },
+        "DPO": {
+          "fixed": 30,
+          "regressed": 37,
+          "changed_choice": 101,
+          "delta_accuracy": -0.02734375,
+          "accuracy_ci95": [
+            -0.08984375,
+            0.03515625
+          ],
+          "delta_log_loss": 0.00676732393912971,
+          "log_loss_ci95": [
+            -0.0001258026037758381,
+            0.013666037569055331
+          ]
+        }
+      }
+    },
+    "DeepSeek-R1-1.5B": {
+      "runs": {
+        "LLM": {
+          "count": 256,
+          "correct": 82,
+          "accuracy": 0.3203125,
+          "log_loss": 1.2453467931918567,
+          "prediction_counts": {
+            "A": 169,
+            "B": 33,
+            "C": 54
+          },
+          "confusion": {
+            "A": {
+              "A": 56,
+              "B": 14,
+              "C": 19
+            },
+            "B": {
+              "A": 69,
+              "B": 10,
+              "C": 19
+            },
+            "C": {
+              "A": 44,
+              "B": 9,
+              "C": 16
+            }
+          },
+          "recall": {
+            "A": 0.6292134831460674,
+            "B": 0.10204081632653061,
+            "C": 0.2318840579710145
+          },
+          "macro_f1": 0.28231429482766335,
+          "wrong_mean_top_probability": 0.502202721847885,
+          "wrong_mean_gold_probability": 0.24962751077616524,
+          "output_argmax_ties": 11,
+          "swap_total_variation": 0.26245969699266425,
+          "swap_agreement": 0.2421875,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 31,
+              "accuracy": 0.3229166666666667,
+              "log_loss": 1.127708019882751
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 51,
+              "accuracy": 0.31875,
+              "log_loss": 1.31593005717732
+            }
+          },
+          "predictions": "DeepSeek-R1-1.5B/LLM/eval/predictions.jsonl"
+        },
+        "SFT": {
+          "count": 256,
+          "correct": 95,
+          "accuracy": 0.37109375,
+          "log_loss": 1.1325653777457774,
+          "prediction_counts": {
+            "A": 0,
+            "B": 236,
+            "C": 20
+          },
+          "confusion": {
+            "A": {
+              "A": 0,
+              "B": 80,
+              "C": 9
+            },
+            "B": {
+              "A": 0,
+              "B": 91,
+              "C": 7
+            },
+            "C": {
+              "A": 0,
+              "B": 65,
+              "C": 4
+            }
+          },
+          "recall": {
+            "A": 0.0,
+            "B": 0.9285714285714286,
+            "C": 0.057971014492753624
+          },
+          "macro_f1": 0.21159927336338558,
+          "wrong_mean_top_probability": 0.44176495612037847,
+          "wrong_mean_gold_probability": 0.2737759787658727,
+          "output_argmax_ties": 30,
+          "swap_total_variation": 0.2070168980571907,
+          "swap_agreement": 0.06640625,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 32,
+              "accuracy": 0.3333333333333333,
+              "log_loss": 1.1740726921707392
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 63,
+              "accuracy": 0.39375,
+              "log_loss": 1.1076609890908002
+            }
+          },
+          "predictions": "DeepSeek-R1-1.5B/SFT/eval/predictions.jsonl",
+          "training": {
+            "optimizer_steps": 64,
+            "training_seconds": 47.34374310000567,
+            "peak_allocated_gib": 5.175543785095215
+          }
+        },
+        "GRPO": {
+          "count": 256,
+          "correct": 74,
+          "accuracy": 0.2890625,
+          "log_loss": 1.196088168071583,
+          "prediction_counts": {
+            "A": 0,
+            "B": 45,
+            "C": 211
+          },
+          "confusion": {
+            "A": {
+              "A": 0,
+              "B": 16,
+              "C": 73
+            },
+            "B": {
+              "A": 0,
+              "B": 17,
+              "C": 81
+            },
+            "C": {
+              "A": 0,
+              "B": 12,
+              "C": 57
+            }
+          },
+          "recall": {
+            "A": 0.0,
+            "B": 0.17346938775510204,
+            "C": 0.8260869565217391
+          },
+          "macro_f1": 0.214968364968365,
+          "wrong_mean_top_probability": 0.4634450981905172,
+          "wrong_mean_gold_probability": 0.2722151919298775,
+          "output_argmax_ties": 30,
+          "swap_total_variation": 0.1737330746545922,
+          "swap_agreement": 0.75390625,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 25,
+              "accuracy": 0.2604166666666667,
+              "log_loss": 1.2661208286881447
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 49,
+              "accuracy": 0.30625,
+              "log_loss": 1.154068571701646
+            }
+          },
+          "predictions": "DeepSeek-R1-1.5B/GRPO/eval/predictions.jsonl",
+          "training": {
+            "optimizer_steps": 24,
+            "training_seconds": 11.87721980002243,
+            "peak_allocated_gib": 13.331555366516113
+          }
+        },
+        "PPO": {
+          "count": 256,
+          "correct": 83,
+          "accuracy": 0.32421875,
+          "log_loss": 1.196193064097315,
+          "prediction_counts": {
+            "A": 0,
+            "B": 131,
+            "C": 125
+          },
+          "confusion": {
+            "A": {
+              "A": 0,
+              "B": 41,
+              "C": 48
+            },
+            "B": {
+              "A": 0,
+              "B": 52,
+              "C": 46
+            },
+            "C": {
+              "A": 0,
+              "B": 38,
+              "C": 31
+            }
+          },
+          "recall": {
+            "A": 0.0,
+            "B": 0.5306122448979592,
+            "C": 0.4492753623188406
+          },
+          "macro_f1": 0.25791203349389996,
+          "wrong_mean_top_probability": 0.4486013867951542,
+          "wrong_mean_gold_probability": 0.27490412418036103,
+          "output_argmax_ties": 65,
+          "swap_total_variation": 0.23195974635018501,
+          "swap_agreement": 0.38671875,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 26,
+              "accuracy": 0.2708333333333333,
+              "log_loss": 1.2701608333736658
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 57,
+              "accuracy": 0.35625,
+              "log_loss": 1.1518124025315046
+            }
+          },
+          "predictions": "DeepSeek-R1-1.5B/PPO/eval/predictions.jsonl",
+          "training": {
+            "optimizer_steps": 24,
+            "training_seconds": 13.135621300025377,
+            "peak_allocated_gib": 13.547780990600586
+          }
+        },
+        "DPO": {
+          "count": 256,
+          "correct": 91,
+          "accuracy": 0.35546875,
+          "log_loss": 1.1421545767225325,
+          "prediction_counts": {
+            "A": 1,
+            "B": 205,
+            "C": 50
+          },
+          "confusion": {
+            "A": {
+              "A": 0,
+              "B": 69,
+              "C": 20
+            },
+            "B": {
+              "A": 1,
+              "B": 79,
+              "C": 18
+            },
+            "C": {
+              "A": 0,
+              "B": 57,
+              "C": 12
+            }
+          },
+          "recall": {
+            "A": 0.0,
+            "B": 0.8061224489795918,
+            "C": 0.17391304347826086
+          },
+          "macro_f1": 0.24104427249447635,
+          "wrong_mean_top_probability": 0.430316112800078,
+          "wrong_mean_gold_probability": 0.27993278647914077,
+          "output_argmax_ties": 36,
+          "swap_total_variation": 0.19894322342588566,
+          "swap_agreement": 0.16015625,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 28,
+              "accuracy": 0.2916666666666667,
+              "log_loss": 1.1889910958707333
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 63,
+              "accuracy": 0.39375,
+              "log_loss": 1.114052665233612
+            }
+          },
+          "predictions": "DeepSeek-R1-1.5B/DPO/eval/predictions.jsonl",
+          "training": {
+            "optimizer_steps": 24,
+            "training_seconds": 9.264238000032492,
+            "peak_allocated_gib": 6.659874439239502
+          }
+        }
+      },
+      "vs_sft": {
+        "GRPO": {
+          "fixed": 53,
+          "regressed": 74,
+          "changed_choice": 191,
+          "delta_accuracy": -0.08203125,
+          "accuracy_ci95": [
+            -0.16733151446984434,
+            0.00390625
+          ],
+          "delta_log_loss": 0.06352279032580554,
+          "log_loss_ci95": [
+            0.03275089395465329,
+            0.09392376947520184
+          ]
+        },
+        "PPO": {
+          "fixed": 27,
+          "regressed": 39,
+          "changed_choice": 105,
+          "delta_accuracy": -0.046875,
+          "accuracy_ci95": [
+            -0.109375,
+            0.015625
+          ],
+          "delta_log_loss": 0.0636276863515377,
+          "log_loss_ci95": [
+            0.035378429188447844,
+            0.09188517808028286
+          ]
+        },
+        "DPO": {
+          "fixed": 8,
+          "regressed": 12,
+          "changed_choice": 31,
+          "delta_accuracy": -0.015625,
+          "accuracy_ci95": [
+            -0.05078125,
+            0.019455252918287938
+          ],
+          "delta_log_loss": 0.009589198976755142,
+          "log_loss_ci95": [
+            -0.00017989540356211305,
+            0.019339845073817058
+          ]
+        }
+      }
+    },
+    "Gemma-3-1B-IT": {
+      "runs": {
+        "LLM": {
+          "count": 256,
+          "correct": 95,
+          "accuracy": 0.37109375,
+          "log_loss": 4.245556087045536,
+          "prediction_counts": {
+            "A": 131,
+            "B": 116,
+            "C": 9
+          },
+          "confusion": {
+            "A": {
+              "A": 49,
+              "B": 38,
+              "C": 2
+            },
+            "B": {
+              "A": 53,
+              "B": 42,
+              "C": 3
+            },
+            "C": {
+              "A": 29,
+              "B": 36,
+              "C": 4
+            }
+          },
+          "recall": {
+            "A": 0.550561797752809,
+            "B": 0.42857142857142855,
+            "C": 0.057971014492753624
+          },
+          "macro_f1": 0.3135140041682098,
+          "wrong_mean_top_probability": 0.9343368549894843,
+          "wrong_mean_gold_probability": 0.03576950296932584,
+          "output_argmax_ties": 4,
+          "swap_total_variation": 0.6716623832754601,
+          "swap_agreement": 0.3203125,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 44,
+              "accuracy": 0.4583333333333333,
+              "log_loss": 4.4674948737762366
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 51,
+              "accuracy": 0.31875,
+              "log_loss": 4.112392815007115
+            }
+          },
+          "predictions": "Gemma-3-1B-IT/LLM/eval/predictions.jsonl"
+        },
+        "SFT": {
+          "count": 256,
+          "correct": 99,
+          "accuracy": 0.38671875,
+          "log_loss": 1.2086827248567715,
+          "prediction_counts": {
+            "A": 0,
+            "B": 255,
+            "C": 1
+          },
+          "confusion": {
+            "A": {
+              "A": 0,
+              "B": 89,
+              "C": 0
+            },
+            "B": {
+              "A": 0,
+              "B": 98,
+              "C": 0
+            },
+            "C": {
+              "A": 0,
+              "B": 68,
+              "C": 1
+            }
+          },
+          "recall": {
+            "A": 0.0,
+            "B": 1.0,
+            "C": 0.014492753623188406
+          },
+          "macro_f1": 0.19460407392418724,
+          "wrong_mean_top_probability": 0.5372467185281644,
+          "wrong_mean_gold_probability": 0.22001793135882944,
+          "output_argmax_ties": 11,
+          "swap_total_variation": 0.3791454250458628,
+          "swap_agreement": 0.00390625,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 36,
+              "accuracy": 0.375,
+              "log_loss": 1.2270405298719804
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 63,
+              "accuracy": 0.39375,
+              "log_loss": 1.1976680418476462
+            }
+          },
+          "predictions": "Gemma-3-1B-IT/SFT/eval/predictions.jsonl",
+          "training": {
+            "optimizer_steps": 64,
+            "training_seconds": 54.51658699999098,
+            "peak_allocated_gib": 5.004350662231445
+          }
+        },
+        "GRPO": {
+          "count": 256,
+          "correct": 73,
+          "accuracy": 0.28515625,
+          "log_loss": 1.2319655399769545,
+          "prediction_counts": {
+            "A": 0,
+            "B": 60,
+            "C": 196
+          },
+          "confusion": {
+            "A": {
+              "A": 0,
+              "B": 16,
+              "C": 73
+            },
+            "B": {
+              "A": 0,
+              "B": 24,
+              "C": 74
+            },
+            "C": {
+              "A": 0,
+              "B": 20,
+              "C": 49
+            }
+          },
+          "recall": {
+            "A": 0.0,
+            "B": 0.24489795918367346,
+            "C": 0.7101449275362319
+          },
+          "macro_f1": 0.22453626303638244,
+          "wrong_mean_top_probability": 0.47278664200032344,
+          "wrong_mean_gold_probability": 0.26773402176268113,
+          "output_argmax_ties": 50,
+          "swap_total_variation": 0.22473921986238565,
+          "swap_agreement": 0.703125,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 25,
+              "accuracy": 0.2604166666666667,
+              "log_loss": 1.2916074972599745
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 48,
+              "accuracy": 0.3,
+              "log_loss": 1.1961803656071424
+            }
+          },
+          "predictions": "Gemma-3-1B-IT/GRPO/eval/predictions.jsonl",
+          "training": {
+            "optimizer_steps": 24,
+            "training_seconds": 9.100458700035233,
+            "peak_allocated_gib": 10.074111461639404
+          }
+        },
+        "PPO": {
+          "count": 256,
+          "correct": 73,
+          "accuracy": 0.28515625,
+          "log_loss": 1.256718791089952,
+          "prediction_counts": {
+            "A": 0,
+            "B": 30,
+            "C": 226
+          },
+          "confusion": {
+            "A": {
+              "A": 0,
+              "B": 10,
+              "C": 79
+            },
+            "B": {
+              "A": 0,
+              "B": 12,
+              "C": 86
+            },
+            "C": {
+              "A": 0,
+              "B": 8,
+              "C": 61
+            }
+          },
+          "recall": {
+            "A": 0.0,
+            "B": 0.12244897959183673,
+            "C": 0.8840579710144928
+          },
+          "macro_f1": 0.20035310734463274,
+          "wrong_mean_top_probability": 0.4922646337845286,
+          "wrong_mean_gold_probability": 0.25554244835031487,
+          "output_argmax_ties": 27,
+          "swap_total_variation": 0.22180016375205014,
+          "swap_agreement": 0.83203125,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 24,
+              "accuracy": 0.25,
+              "log_loss": 1.33357599688073
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 49,
+              "accuracy": 0.30625,
+              "log_loss": 1.2106044676154852
+            }
+          },
+          "predictions": "Gemma-3-1B-IT/PPO/eval/predictions.jsonl",
+          "training": {
+            "optimizer_steps": 24,
+            "training_seconds": 9.135393899981864,
+            "peak_allocated_gib": 10.208635330200195
+          }
+        },
+        "DPO": {
+          "count": 256,
+          "correct": 99,
+          "accuracy": 0.38671875,
+          "log_loss": 1.200138813117519,
+          "prediction_counts": {
+            "A": 0,
+            "B": 239,
+            "C": 17
+          },
+          "confusion": {
+            "A": {
+              "A": 0,
+              "B": 81,
+              "C": 8
+            },
+            "B": {
+              "A": 0,
+              "B": 94,
+              "C": 4
+            },
+            "C": {
+              "A": 0,
+              "B": 64,
+              "C": 5
+            }
+          },
+          "recall": {
+            "A": 0.0,
+            "B": 0.9591836734693877,
+            "C": 0.07246376811594203
+          },
+          "macro_f1": 0.22471419041704047,
+          "wrong_mean_top_probability": 0.498395253138937,
+          "wrong_mean_gold_probability": 0.23862818955995474,
+          "output_argmax_ties": 32,
+          "swap_total_variation": 0.3403340615623165,
+          "swap_agreement": 0.05078125,
+          "truncation": {
+            "complete": {
+              "count": 96,
+              "correct": 36,
+              "accuracy": 0.375,
+              "log_loss": 1.2336549249788125
+            },
+            "truncated": {
+              "count": 160,
+              "correct": 63,
+              "accuracy": 0.39375,
+              "log_loss": 1.1800291460007428
+            }
+          },
+          "predictions": "Gemma-3-1B-IT/DPO/eval/predictions.jsonl",
+          "training": {
+            "optimizer_steps": 24,
+            "training_seconds": 9.013036900025327,
+            "peak_allocated_gib": 4.35184383392334
+          }
+        }
+      },
+      "vs_sft": {
+        "GRPO": {
+          "fixed": 48,
+          "regressed": 74,
+          "changed_choice": 195,
+          "delta_accuracy": -0.1015625,
+          "accuracy_ci95": [
+            -0.18359375,
+            -0.01568627450980392
+          ],
+          "delta_log_loss": 0.02328281512018293,
+          "log_loss_ci95": [
+            -0.018393398614716713,
+            0.06422514589612975
+          ]
+        },
+        "PPO": {
+          "fixed": 60,
+          "regressed": 86,
+          "changed_choice": 225,
+          "delta_accuracy": -0.1015625,
+          "accuracy_ci95": [
+            -0.19215686274509805,
+            -0.01171875
+          ],
+          "delta_log_loss": 0.04803606623318046,
+          "log_loss_ci95": [
+            0.0020133805099655606,
+            0.09287825865445558
+          ]
+        },
+        "DPO": {
+          "fixed": 4,
+          "regressed": 4,
+          "changed_choice": 16,
+          "delta_accuracy": 0.0,
+          "accuracy_ci95": [
+            -0.023166023166023165,
+            0.023346303501945526
+          ],
+          "delta_log_loss": -0.008543911739252508,
+          "log_loss_ci95": [
+            -0.021660801709866992,
+            0.004451915943828484
+          ]
+        }
+      }
+    }
+  },
+  "examples": {
+    "1645990150": {
+      "SFT": {
+        "id": "1645990150",
+        "prediction": "B",
+        "probabilities": {
+          "winner_model_a": 0.28026506304740906,
+          "winner_model_b": 0.35986751317977905,
+          "winner_tie": 0.35986751317977905
+        },
+        "truncated": true,
+        "target": "C",
+        "log_loss": 1.022019386291504,
+        "swap_total_variation": 0.06665642559528351
+      },
+      "DPO": {
+        "id": "1645990150",
+        "prediction": "C",
+        "probabilities": {
+          "winner_model_a": 0.29263952374458313,
+          "winner_model_b": 0.33160400390625,
+          "winner_tie": 0.3757565915584564
+        },
+        "truncated": true,
+        "target": "C",
+        "log_loss": 0.9788137674331665,
+        "swap_total_variation": 0.03896448016166687
+      }
+    },
+    "716611868": {
+      "SFT": {
+        "id": "716611868",
+        "prediction": "B",
+        "probabilities": {
+          "winner_model_a": 0.30615711212158203,
+          "winner_model_b": 0.3469214141368866,
+          "winner_tie": 0.3469214141368866
+        },
+        "truncated": false,
+        "target": "B",
+        "log_loss": 1.058656930923462,
+        "swap_total_variation": 0.027176201343536377
+      },
+      "DPO": {
+        "id": "716611868",
+        "prediction": "C",
+        "probabilities": {
+          "winner_model_a": 0.29263952374458313,
+          "winner_model_b": 0.33160400390625,
+          "winner_tie": 0.3757565915584564
+        },
+        "truncated": false,
+        "target": "B",
+        "log_loss": 1.1038137674331665,
+        "swap_total_variation": 0.02652829885482788
+      }
+    }
+  },
+  "related_qwen_holdout": "related/qwen-calibration-holdout.json"
+}

@@ -1,6 +1,6 @@
 {
   "seed": 42,
-  "max_steps": 24,
+  "max_steps": 48,
   "learning_rate": 3e-06,
   "value_learning_rate": 0.001,
   "batch_size": 2,
@@ -13,5 +13,7 @@
   "gae_lambda": 0.95,
   "cliprange": 0.2,
   "value_coef": 0.5,
-  "max_grad_norm": 1
+  "max_grad_norm": 1,
+  "value_cliprange": 0.2,
+  "save_at_steps": []
 }

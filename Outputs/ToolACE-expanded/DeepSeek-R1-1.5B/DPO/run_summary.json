@@ -1,0 +1,109 @@
+{
+  "stage": "dpo",
+  "status": "completed",
+  "config": {
+    "dataset": "ToolACE",
+    "model": {
+      "name": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+      "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+      "local_path": "step1_LLM/Models/DeepSeek-R1-1.5B/weights",
+      "attn_implementation": "sdpa",
+      "prompt_mode": "user",
+      "chat_template_kwargs": {},
+      "description": "1.5B 蒸馏模型；模板默认包含思考前缀，尚未完成本地训练验证。",
+      "requested_revision": "main"
+    },
+    "selected_model": "DeepSeek-R1-1.5B",
+    "seed": 42,
+    "data_sha256": {
+      "train": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+      "val": "ea0db4441165d1382db3d65f83d769c3afc9bb4f930dc65f3d42fe80dccb4732",
+      "test_final": "f211e48230cc7b939a8174c99cf50696b95fa755a882434c5b978edc960b280f"
+    },
+    "eval": {
+      "max_new_tokens": 128
+    },
+    "evaluation": {
+      "split": "val",
+      "seed": 42,
+      "limit": null,
+      "batch_size": 16
+    },
+    "experiment": "ToolACE-expanded-v1",
+    "method": "DPO",
+    "source_config": "step3_Tune/RL/DPO/Configs/DeepSeek-R1-1.5B/ToolACE.json",
+    "dpo": {
+      "max_steps": 48,
+      "learning_rate": 1e-05,
+      "batch_size": 1,
+      "gradient_accumulation_steps": 4,
+      "beta": 0.1,
+      "max_prompt_length": 768,
+      "max_completion_length": 128,
+      "max_grad_norm": 1.0,
+      "save_at_steps": []
+    },
+    "sft_adapter": "Outputs/ToolACE-expanded/DeepSeek-R1-1.5B/SFT/adapter",
+    "sft_adapter_sha256": "50dac026ff635546a1961dcba524fcfa84771116f2af65e50b4e91c9ff2fc254"
+  },
+  "actual_dpo": {
+    "max_steps": 48,
+    "learning_rate": 1e-05,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 4,
+    "beta": 0.1,
+    "max_prompt_length": 768,
+    "max_completion_length": 128,
+    "max_grad_norm": 1.0,
+    "save_at_steps": []
+  },
+  "data_path": "Datasets/ToolACE/train.jsonl",
+  "data_sha256": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+  "training_rows": 694,
+  "sft_adapter": "Outputs/ToolACE-expanded/DeepSeek-R1-1.5B/SFT/adapter",
+  "sft_adapter_files_sha256": {
+    "adapter_config.json": "3c652a199b9c5aceae7e789c745adffd2346a6ce107d92413129e6b1deff6c13",
+    "adapter_model.safetensors": "50dac026ff635546a1961dcba524fcfa84771116f2af65e50b4e91c9ff2fc254"
+  },
+  "output": "Outputs/ToolACE-expanded/DeepSeek-R1-1.5B/DPO/adapter",
+  "pairs_sha256": "5ab1de065d3a8e9c21075ffb69c229b8acdc52b7078b4760e19270438cd584c1",
+  "pair_protocol": "verified_reference_vs_deterministic_wrong_call",
+  "loss_protocol": "mean sigmoid DPO: -logsigmoid(beta*((logp_chosen-logp_rejected)-(ref_chosen-ref_rejected)))",
+  "reference_protocol": "all scheduled pairs scored by the untouched SFT policy before any update; immutable cached logps",
+  "probability_protocol": "sum of completion token logps including EOS; prompt/padding masked; no length normalization",
+  "action_space": null,
+  "reference_kl": "implicit reference-relative DPO objective; no additional sampled KL penalty",
+  "sft_source": {
+    "path": "Outputs/ToolACE-expanded/DeepSeek-R1-1.5B/SFT/adapter",
+    "stage": "sft",
+    "optimizer_steps": 174,
+    "expected_adapter_sha256": "e0bd80065b361e22196b1d1a7b8622d2e9a5b9e1189289267c9e228148745c07"
+  },
+  "initial_state_matches_sft": true,
+  "reference_policy_sha256": "e0bd80065b361e22196b1d1a7b8622d2e9a5b9e1189289267c9e228148745c07",
+  "reference_logps_sha256": "01ce47d1237517ac7a30bfccfa8432aed1e3647df7c33c7785f7dbb1d5eb6a36",
+  "training_schedule_sha256": "4049ea3c85f80f876e27eb84564ebd3592effc831b4b8f527e0453eb626a9d1b",
+  "reference_rows": 192,
+  "optimizer_steps": 48,
+  "update": {
+    "finite_parameters": true,
+    "changed_tensors": 112,
+    "total_trainable_tensors": 112,
+    "trainable_parameters": 1089536,
+    "parameter_delta_l2": 0.23468137127218125,
+    "before_sha256": "e0bd80065b361e22196b1d1a7b8622d2e9a5b9e1189289267c9e228148745c07",
+    "after_sha256": "3524dc29e316d01210c4836e769e72121df727d1925af7ccff8747d3dca424e8",
+    "nonzero_update": true
+  },
+  "reference_seconds": 9.368545999983326,
+  "optimization_seconds": 21.261307299952023,
+  "training_seconds": 30.62985329993535,
+  "training_pair_exposures": 192,
+  "peak_allocated_gib": 7.400412082672119,
+  "peak_reserved_gib": 9.576171875,
+  "metrics": {
+    "first_loss": 0.6931471824645996,
+    "last_loss": 0.6160857081413269,
+    "last_reward_margin": 0.1612643301486969
+  }
+}

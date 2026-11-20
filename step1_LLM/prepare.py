@@ -1,6 +1,7 @@
 """模型准备、下载与加载，以及运行配置、路径和随机种子。"""
 from importlib import import_module
 import importlib.metadata as metadata
+import hashlib
 from copy import deepcopy
 from pathlib import Path
 import json
@@ -267,22 +268,40 @@ def prepare_model(config):
     model = config['model']
     dest = model_path(config)
     requested = model.get('requested_revision', revision)
+    download = model.get('download')
+    source_repo = download['repository'] if download else model['name']
+    source_revision = download['revision'] if download else revision
+    source = {'repository': source_repo, 'revision': source_revision}
+    pending_path = dest / '.cache' / 'model-download.json'
+    pending = json.loads(pending_path.read_text(encoding='utf-8')) if pending_path.is_file() else None
     identity = _model_identity(dest)
     same_identity = (isinstance(identity, dict) and identity.get('repository') == model['name']
                      and identity.get('revision') == revision)
+    if download and same_identity:
+        same_identity = identity.get('download') == download
     # Hub离线时可能直接返回非空local_dir，不能把旧权重重新标记为本次revision。
-    if dest.exists() and any(dest.iterdir()) and not same_identity:
+    resumable = identity is None and pending == source
+    if (dest.exists() and any(path.name != '.cache' for path in dest.iterdir())
+            and not same_identity and not resumable):
         raise ValueError(f'模型目录非空且仓库/revision身份缺失或不一致：{dest}；请指定新的 model.local_path')
     if same_identity and _complete_local_model(dest):
         print('Model ready (verified local):', dest)
         return dest
     from huggingface_hub import snapshot_download
-    snapshot_download(repo_id=model['name'], revision=revision, local_dir=str(dest),
+    write_json(pending_path, source)
+    snapshot_download(repo_id=source_repo, revision=source_revision, local_dir=str(dest),
         allow_patterns=['*.json', '*.safetensors', '*.txt', '*.jinja', 'LICENSE'], max_workers=4)
     if not _complete_local_model(dest):
         raise ValueError(f'模型下载不完整或不支持当前safetensors加载路径：{dest}')
-    write_json(dest / 'model_info.json', {'repository': model['name'], 'revision': revision,
-        'requested_revision': requested, 'source': 'https://huggingface.co/' + model['name']})
+    identity = {'repository': model['name'], 'revision': revision,
+                'requested_revision': requested, 'source': 'https://huggingface.co/' + source_repo}
+    if download:
+        for filename, expected in download['sha256'].items():
+            with (dest / filename).open('rb') as file:
+                if hashlib.file_digest(file, 'sha256').hexdigest() != expected:
+                    raise ValueError(f'权重来源校验失败：{dest / filename}')
+        identity['download'] = download
+    write_json(dest / 'model_info.json', identity)
     print('Model ready:', dest)
     return dest
 

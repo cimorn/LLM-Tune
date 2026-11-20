@@ -16,6 +16,7 @@ STAGES = {
     "sft": Path("SFT"),
     "grpo": Path("GRPO"),
     "ppo": Path("PPO"),
+    "dpo": Path("DPO"),
 }
 MODEL_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]*")
 END_GENERATED_RESULTS = "<!-- END GENERATED RESULTS -->"
@@ -45,8 +46,8 @@ README_TEXT = {
         "captions": ("{model} validation success rate", "{model} training curves"),
     },
 }
-LABELS = {"baseline": "Base model", "sft": "SFT", "grpo": "SFT + GRPO", "ppo": "SFT + PPO"}
-COLORS = {"baseline": "#8797A4", "sft": "#087F83", "grpo": "#7255A4", "ppo": "#C17835"}
+LABELS = {"baseline": "Base model", "sft": "SFT", "grpo": "SFT + GRPO", "ppo": "SFT + PPO", "dpo": "SFT + DPO"}
+COLORS = {"baseline": "#8797A4", "sft": "#087F83", "grpo": "#7255A4", "ppo": "#C17835", "dpo": "#95704D"}
 METRICS = (
     "count", "success_rate", "format_rate", "schema_valid_rate", "mean_generated_tokens",
     "latency_p50_s", "latency_p90_s", "peak_memory_allocated_mb", "error_counts",
@@ -58,8 +59,8 @@ def load_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def load_run(stage_dir: Path, label: str) -> dict | None:
-    eval_dir = stage_dir / "eval"
+def load_run(stage_dir: Path, label: str, *, eval_subdir: str = "eval") -> dict | None:
+    eval_dir = stage_dir / eval_subdir
     metrics_path = eval_dir / "metrics.json"
     metrics = load_json(metrics_path) if metrics_path.is_file() else None
     marker = stage_dir / "run.json"
@@ -112,7 +113,7 @@ def validate_comparable(runs: dict[str, dict]) -> None:
                 if run["by_id"][item_id][field] != expected[field]:
                     raise ValueError(f"{label} 评估题目 {item_id} 的 {field} 与基座评估不同。")
 
-    for label in ("grpo", "ppo"):
+    for label in ("grpo", "ppo", "dpo"):
         if label not in runs:
             continue
         sft = runs.get("sft")
@@ -147,13 +148,13 @@ def paired_bootstrap(reference: dict, candidate: dict, *, seed: int = 42, sample
 def compare_to_sft(runs: dict[str, dict]) -> dict:
     validate_comparable(runs)
     return {label: paired_bootstrap(runs["sft"], runs[label])
-            for label in ("grpo", "ppo") if label in runs}
+            for label in ("grpo", "ppo", "dpo") if label in runs}
 
 
 def training_series(run: dict) -> tuple[list[int], list[float]]:
     path = run["directory"] / "train_log.json"
     history = load_json(path)
-    fields = ("loss",) if run["label"] == "sft" else ("reward", "rewards/strict_tool_reward/mean")
+    fields = ("loss",) if run["label"] in ("sft", "dpo") else ("reward", "rewards/strict_tool_reward/mean")
     for field in fields:
         points = sorted((int(row["step"]), float(row[field])) for row in history if "step" in row and field in row)
         if not points:
@@ -199,7 +200,7 @@ def draw_figures(report: dict, curves: dict, destination: Path) -> list[Path]:
             ax.plot(steps, values, color=COLORS[label], linewidth=1.5, marker="." if len(steps) < 15 else None)
             ax.set_title(f"{label.upper()} training")
             ax.set_xlabel("Rollout" if label == "ppo" else "Optimizer step")
-            ax.set_ylabel("Loss" if label == "sft" else "Mean rollout reward")
+            ax.set_ylabel("Loss" if label in ("sft", "dpo") else "Mean rollout reward")
             ax.xaxis.set_major_locator(MaxNLocator(integer=True, nbins=6))
             ax.grid(axis="y", color="#E7EEF0")
         learning = destination / "learning_curves.png"

@@ -1,0 +1,159 @@
+{
+  "stage": "ppo",
+  "status": "completed",
+  "config": {
+    "dataset": "ToolACE",
+    "model": {
+      "name": "google/gemma-3-1b-it",
+      "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+      "download": {
+        "repository": "unsloth/gemma-3-1b-it",
+        "revision": "5b11413a10db4e486ef16a20101fd028f8f2499c",
+        "sha256": {
+          "model.safetensors": "3d4ef8d71c14db7e448a09ebe891cfb6bf32c57a9b44499ae0d1c098e48516b6",
+          "tokenizer.json": "4667f2089529e8e7657cfb6d1c19910ae71ff5f28aa7ab2ff2763330affad795"
+        }
+      },
+      "attn_implementation": "sdpa",
+      "prompt_mode": "user",
+      "chat_template_kwargs": {},
+      "local_path": "step1_LLM/Models/Gemma-3-1B-IT/weights"
+    },
+    "selected_model": "Gemma-3-1B-IT",
+    "seed": 42,
+    "data_sha256": {
+      "train": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+      "val": "ea0db4441165d1382db3d65f83d769c3afc9bb4f930dc65f3d42fe80dccb4732",
+      "test_final": "f211e48230cc7b939a8174c99cf50696b95fa755a882434c5b978edc960b280f"
+    },
+    "eval": {
+      "max_new_tokens": 128
+    },
+    "evaluation": {
+      "split": "val",
+      "seed": 42,
+      "limit": null,
+      "batch_size": 16
+    },
+    "experiment": "ToolACE-expanded-v1",
+    "method": "PPO",
+    "source_config": "step3_Tune/RL/PPO/Configs/Gemma-3-1B-IT/ToolACE.json",
+    "ppo": {
+      "max_steps": 48,
+      "learning_rate": 3e-06,
+      "value_learning_rate": 0.001,
+      "batch_size": 2,
+      "prompts_per_rollout": 2,
+      "num_generations": 4,
+      "max_prompt_length": 768,
+      "max_completion_length": 128,
+      "ppo_epochs": 2,
+      "gamma": 1,
+      "gae_lambda": 0.95,
+      "cliprange": 0.2,
+      "value_cliprange": 0.2,
+      "value_coef": 0.5,
+      "max_grad_norm": 1,
+      "save_at_steps": []
+    },
+    "sft_adapter": "Outputs/ToolACE-expanded/Gemma-3-1B-IT/SFT/adapter",
+    "sft_adapter_sha256": "29509e3865abc222b6e48369f92351c4b8b2bb6fa0c9c175cf68e7573b9f67f1"
+  },
+  "actual_ppo": {
+    "max_steps": 48,
+    "learning_rate": 3e-06,
+    "value_learning_rate": 0.001,
+    "batch_size": 2,
+    "prompts_per_rollout": 2,
+    "num_generations": 4,
+    "max_prompt_length": 768,
+    "max_completion_length": 128,
+    "ppo_epochs": 2,
+    "gamma": 1,
+    "gae_lambda": 0.95,
+    "cliprange": 0.2,
+    "value_cliprange": 0.2,
+    "value_coef": 0.5,
+    "max_grad_norm": 1,
+    "save_at_steps": []
+  },
+  "data_path": "Datasets/ToolACE/train.jsonl",
+  "data_sha256": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+  "training_rows": 694,
+  "sft_adapter": "Outputs/ToolACE-expanded/Gemma-3-1B-IT/SFT/adapter",
+  "output": "Outputs/ToolACE-expanded/Gemma-3-1B-IT/PPO/adapter",
+  "loss_protocol": "PPO-Clip with masked GAE and a learned value head; normalized over valid completion tokens",
+  "value_protocol": "Linear head on detached actor hidden states; initial weights zero; clipped squared error",
+  "reward_protocol": "Dataset verifier supplies a strict 0/1 terminal reward; EOS or length limit ends the episode",
+  "reference_kl": false,
+  "initial_state_matches_sft": true,
+  "sft_source": {
+    "path": "Outputs/ToolACE-expanded/Gemma-3-1B-IT/SFT/adapter",
+    "stage": "sft",
+    "optimizer_steps": 174,
+    "expected_adapter_sha256": "cca660fde1c335ff001425c75871e05fe0bbf7dfb2202112ad2c94c658bbe59a"
+  },
+  "sampling": {
+    "use_model_defaults": false,
+    "do_sample": true,
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "repetition_penalty": 1.0,
+    "max_new_tokens": 128,
+    "num_generations": 4,
+    "prompts_per_rollout": 2
+  },
+  "rollout_steps": 48,
+  "optimizer_steps": 96,
+  "training_seconds": 144.3699691001093,
+  "peak_allocated_gib": 5.125252723693848,
+  "peak_reserved_gib": 6.400390625,
+  "bf16": true,
+  "phase_timing": {
+    "generation_seconds": 80.42460719984956,
+    "reward_and_log_seconds": 0.05099309957586229,
+    "old_policy_seconds": 10.473842500243336,
+    "optimization_seconds": 53.06694559997413
+  },
+  "update": {
+    "finite_parameters": true,
+    "changed_tensors": 104,
+    "total_trainable_tensors": 104,
+    "trainable_parameters": 745472,
+    "parameter_delta_l2": 0.04618796030172022,
+    "before_sha256": "cca660fde1c335ff001425c75871e05fe0bbf7dfb2202112ad2c94c658bbe59a",
+    "after_sha256": "79eb5378d3118e788701d0491dc66ae0e4a584fe81b40cf6d71bb149fdda57c3",
+    "nonzero_update": true
+  },
+  "value_update": {
+    "finite_parameters": true,
+    "changed_tensors": 2,
+    "total_trainable_tensors": 2,
+    "trainable_parameters": 1153,
+    "parameter_delta_l2": 0.1429043364327309,
+    "before_sha256": "2d2beb357c9672191aef1e23850e57ca91eaf2355bab458228f0ad94a99aed55",
+    "after_sha256": "88b1c0757058ac4300b8ea39e4899fe2272358ad507f80c0b711892ee1a3b0d5",
+    "nonzero_update": true
+  },
+  "reward": {
+    "generation_calls": 48,
+    "sampled_completions": 384,
+    "sampled_completion_tokens": 8282,
+    "token_observed_samples": 384,
+    "groups": 96,
+    "zero_variance_groups": 62,
+    "zero_variance_fraction": 0.6458333333333334,
+    "mean_sample_reward": 0.5286458333333334,
+    "error_counts": {
+      "ok": 203,
+      "wrong_arguments": 130,
+      "invalid_json": 38,
+      "wrong_tool": 10,
+      "invalid_schema": 3
+    },
+    "terminated_samples": 383,
+    "truncated_at_limit": 1,
+    "truncated_fraction": 0.0026041666666666665
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "stage": "sft",
+  "status": "completed",
+  "config": {
+    "dataset": "ToolACE",
+    "model": {
+      "name": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+      "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+      "local_path": "step1_LLM/Models/DeepSeek-R1-1.5B/weights",
+      "attn_implementation": "sdpa",
+      "prompt_mode": "user",
+      "chat_template_kwargs": {},
+      "description": "1.5B 蒸馏模型；模板默认包含思考前缀，尚未完成本地训练验证。",
+      "requested_revision": "main"
+    },
+    "selected_model": "DeepSeek-R1-1.5B",
+    "seed": 42,
+    "data_sha256": {
+      "train": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+      "val": "ea0db4441165d1382db3d65f83d769c3afc9bb4f930dc65f3d42fe80dccb4732",
+      "test_final": "f211e48230cc7b939a8174c99cf50696b95fa755a882434c5b978edc960b280f"
+    },
+    "eval": {
+      "max_new_tokens": 128
+    },
+    "evaluation": {
+      "split": "val",
+      "seed": 42,
+      "limit": null,
+      "batch_size": 16
+    },
+    "experiment": "ToolACE-expanded-v1",
+    "method": "SFT",
+    "source_config": "step2_SFT/Configs/DeepSeek-R1-1.5B/ToolACE.json",
+    "lora": {
+      "r": 8,
+      "lora_alpha": 16,
+      "lora_dropout": 0,
+      "target_modules": [
+        "q_proj",
+        "v_proj"
+      ]
+    },
+    "sft": {
+      "max_steps": 174,
+      "learning_rate": 0.0002,
+      "batch_size": 1,
+      "gradient_accumulation_steps": 4,
+      "max_length": 896,
+      "save_at_steps": []
+    }
+  },
+  "actual_sft": {
+    "max_steps": 174,
+    "learning_rate": 0.0002,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 4,
+    "max_length": 896,
+    "save_at_steps": []
+  },
+  "data_path": "Datasets/ToolACE/train.jsonl",
+  "data_sha256": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+  "training_rows": 694,
+  "output": "Outputs/ToolACE-expanded/DeepSeek-R1-1.5B/SFT/adapter",
+  "training_seconds": 123.79575030005071,
+  "peak_allocated_gib": 4.41576623916626,
+  "peak_reserved_gib": 9.048828125,
+  "bf16": true,
+  "optimizer_steps": 174,
+  "metrics": {
+    "train_runtime": 123.6573,
+    "train_samples_per_second": 5.628,
+    "train_steps_per_second": 1.407,
+    "train_loss": 0.18763669331333246,
+    "epoch": 1.0
+  },
+  "update": {
+    "finite_parameters": true,
+    "changed_tensors": 112,
+    "total_trainable_tensors": 112,
+    "trainable_parameters": 1089536,
+    "parameter_delta_l2": 5.276424101846778,
+    "before_sha256": "3f9be6dba5a973f258925711c472ae75b3483f6e86d7033d94b63ac15f8e1bd6",
+    "after_sha256": "e0bd80065b361e22196b1d1a7b8622d2e9a5b9e1189289267c9e228148745c07",
+    "nonzero_update": true
+  },
+  "loss_protocol": "completion-only labels; causal shift handled by model"
+}

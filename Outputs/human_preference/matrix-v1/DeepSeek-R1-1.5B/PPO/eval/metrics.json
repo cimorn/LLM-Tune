@@ -1,0 +1,29 @@
+{
+  "count": 256,
+  "split": "val",
+  "log_loss": 1.196193064097315,
+  "accuracy": 0.32421875,
+  "swap_mean_total_variation": 0.23195974635018501,
+  "swap_consistency_rate": 0.38671875,
+  "truncation_rate": 0.625,
+  "max_length": 512,
+  "probability_protocol": "softmax over three single-token label logits at the answer position",
+  "label_token_ids": {
+    "A": 32,
+    "B": 33,
+    "C": 34
+  },
+  "batch_size": 8,
+  "model": {
+    "name": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+    "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+    "local_path": "step1_LLM/Models/DeepSeek-R1-1.5B/weights",
+    "architecture_config_sha256": "322e8ef5d0b2125fb02b32ef315e01642ddba4e1e10c500c7e2d568c7f412152"
+  },
+  "adapter_files_sha256": {
+    "adapter_config.json": "9e4e99edc27eb6ae3c376a8904cae6a51fc10683dc2ab4b7892ed5d9347e88f2",
+    "adapter_model.safetensors": "65160ee074cd0d6eab229781aa8d1aa0259f4b2872cf618df276419292d78ea9"
+  },
+  "data_sha256": "fed270dd3f15e77df9f430e2a65b5d038f4d826e0b6f88d44d7b1ef76cb2b727",
+  "config_sha256": "c412d58a1c33691c0bce63467cc6f7134f2342b4be2916fa189d245fadc36045"
+}

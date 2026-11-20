@@ -1,6 +1,6 @@
 {
   "seed": 42,
-  "max_steps": 24,
+  "max_steps": 48,
   "learning_rate": 3e-06,
   "batch_size": 2,
   "gradient_accumulation_steps": 4,

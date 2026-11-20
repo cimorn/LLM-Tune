@@ -1,0 +1,151 @@
+{
+  "stage": "grpo",
+  "status": "completed",
+  "config": {
+    "dataset": "ToolACE",
+    "model": {
+      "name": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+      "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+      "local_path": "step1_LLM/Models/DeepSeek-R1-1.5B/weights",
+      "attn_implementation": "sdpa",
+      "prompt_mode": "user",
+      "chat_template_kwargs": {},
+      "description": "1.5B 蒸馏模型；模板默认包含思考前缀，尚未完成本地训练验证。",
+      "requested_revision": "main"
+    },
+    "selected_model": "DeepSeek-R1-1.5B",
+    "seed": 42,
+    "data_sha256": {
+      "train": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+      "val": "ea0db4441165d1382db3d65f83d769c3afc9bb4f930dc65f3d42fe80dccb4732",
+      "test_final": "f211e48230cc7b939a8174c99cf50696b95fa755a882434c5b978edc960b280f"
+    },
+    "eval": {
+      "max_new_tokens": 128
+    },
+    "evaluation": {
+      "split": "val",
+      "seed": 42,
+      "limit": null,
+      "batch_size": 16
+    },
+    "experiment": "ToolACE-expanded-v1",
+    "method": "GRPO",
+    "source_config": "step3_Tune/RL/GRPO/Configs/DeepSeek-R1-1.5B/ToolACE.json",
+    "grpo": {
+      "max_steps": 48,
+      "learning_rate": 3e-06,
+      "batch_size": 2,
+      "gradient_accumulation_steps": 4,
+      "num_generations": 4,
+      "max_prompt_length": 768,
+      "max_completion_length": 128,
+      "beta": 0,
+      "loss_type": "dapo",
+      "scale_rewards": "none"
+    },
+    "sft_adapter": "Outputs/ToolACE-expanded/DeepSeek-R1-1.5B/SFT/adapter",
+    "sft_adapter_sha256": "50dac026ff635546a1961dcba524fcfa84771116f2af65e50b4e91c9ff2fc254"
+  },
+  "actual_grpo": {
+    "max_steps": 48,
+    "learning_rate": 3e-06,
+    "batch_size": 2,
+    "gradient_accumulation_steps": 4,
+    "num_generations": 4,
+    "max_prompt_length": 768,
+    "max_completion_length": 128,
+    "beta": 0,
+    "loss_type": "dapo",
+    "scale_rewards": "none"
+  },
+  "sft_adapter": "Outputs/ToolACE-expanded/DeepSeek-R1-1.5B/SFT/adapter",
+  "data_path": "Datasets/ToolACE/train.jsonl",
+  "data_sha256": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+  "training_rows": 694,
+  "output": "Outputs/ToolACE-expanded/DeepSeek-R1-1.5B/GRPO/adapter",
+  "sampling": {
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "repetition_penalty": 1.0,
+    "num_generations": 4
+  },
+  "loss": {
+    "loss_type": "dapo",
+    "scale_rewards": "none",
+    "beta": 0.0,
+    "num_iterations": 1,
+    "epsilon": 0.2
+  },
+  "initial_state_matches_sft": true,
+  "sft_source": {
+    "path": "Outputs/ToolACE-expanded/DeepSeek-R1-1.5B/SFT/adapter",
+    "stage": "sft",
+    "optimizer_steps": 174,
+    "expected_adapter_sha256": "e0bd80065b361e22196b1d1a7b8622d2e9a5b9e1189289267c9e228148745c07"
+  },
+  "effective_sampling": {
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "min_p": null,
+    "repetition_penalty": 1.0,
+    "do_sample": true,
+    "num_beams": 1,
+    "no_repeat_ngram_size": 0,
+    "bad_words_ids": null,
+    "suppress_tokens": null,
+    "begin_suppress_tokens": null,
+    "forced_bos_token_id": null,
+    "forced_eos_token_id": null,
+    "max_new_tokens": 128,
+    "eos_token_id": 151643,
+    "probe": "Transformers._prepare_generation_config after model-default merge"
+  },
+  "training_seconds": 91.8603266000282,
+  "peak_allocated_gib": 3.8795347213745117,
+  "peak_reserved_gib": 4.66015625,
+  "bf16": true,
+  "optimizer_steps": 48,
+  "metrics": {
+    "train_runtime": 91.716,
+    "train_samples_per_second": 4.187,
+    "train_steps_per_second": 0.523,
+    "total_flos": 0.0,
+    "train_loss": 0.001645464721756677
+  },
+  "update": {
+    "finite_parameters": true,
+    "changed_tensors": 112,
+    "total_trainable_tensors": 112,
+    "trainable_parameters": 1089536,
+    "parameter_delta_l2": 0.024572335373150792,
+    "before_sha256": "e0bd80065b361e22196b1d1a7b8622d2e9a5b9e1189289267c9e228148745c07",
+    "after_sha256": "17b676223a9737d3c2957859f4869401b884da188df2b4e9c446e578fe9a0e60",
+    "nonzero_update": true
+  },
+  "reward": {
+    "generation_calls": 48,
+    "sampled_completions": 384,
+    "groups": 96,
+    "zero_variance_groups": 61,
+    "zero_variance_fraction": 0.6354166666666666,
+    "mean_sample_reward": 0.6197916666666666,
+    "error_counts": {
+      "ok": 238,
+      "wrong_arguments": 100,
+      "wrong_tool": 23,
+      "invalid_json": 22,
+      "invalid_schema": 1
+    },
+    "sampled_completion_tokens": 8471,
+    "token_observed_samples": 384,
+    "token_count_scope": "actual sampled completion IDs, including EOS; excludes post-EOS padding",
+    "terminated_samples": 383,
+    "truncated_at_limit": 1,
+    "truncated_fraction": 0.0026041666666666665,
+    "reward_and_log_seconds": 0.04345080011989921
+  },
+  "diagnostic": "参数已更新，仍需独立评测"
+}

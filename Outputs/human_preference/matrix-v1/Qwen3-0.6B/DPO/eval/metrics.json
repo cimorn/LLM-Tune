@@ -1,0 +1,29 @@
+{
+  "count": 256,
+  "split": "val",
+  "log_loss": 1.1125014163553715,
+  "accuracy": 0.3203125,
+  "swap_mean_total_variation": 0.06075777666410431,
+  "swap_consistency_rate": 0.28125,
+  "truncation_rate": 0.625,
+  "max_length": 512,
+  "probability_protocol": "softmax over three single-token label logits at the answer position",
+  "label_token_ids": {
+    "A": 32,
+    "B": 33,
+    "C": 34
+  },
+  "batch_size": 8,
+  "model": {
+    "name": "Qwen/Qwen3-0.6B",
+    "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "local_path": "step1_LLM/Models/Qwen3-0.6B/weights",
+    "architecture_config_sha256": "5c994624f3d4f5806b7e0ce73e3f54b8170504e97cd15bc3ea0c021c4ae2c3bd"
+  },
+  "adapter_files_sha256": {
+    "adapter_config.json": "02b09e446c1c7eaa0154fcd13feac531d9e79007d54c6205a12a33eb5a4d8e3a",
+    "adapter_model.safetensors": "63c5d2a2b12568decd46c953e5e64b4c054a0a22b12a6cf2e5c7e842628e6f56"
+  },
+  "data_sha256": "fed270dd3f15e77df9f430e2a65b5d038f4d826e0b6f88d44d7b1ef76cb2b727",
+  "config_sha256": "2082f278911fd39e07b8ca2402ac43352a7757e1fe31f5640bd84784b4826a31"
+}

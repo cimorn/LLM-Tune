@@ -1,0 +1,29 @@
+{
+  "count": 256,
+  "split": "val",
+  "log_loss": 1.200138813117519,
+  "accuracy": 0.38671875,
+  "swap_mean_total_variation": 0.3403340615623165,
+  "swap_consistency_rate": 0.05078125,
+  "truncation_rate": 0.625,
+  "max_length": 512,
+  "probability_protocol": "softmax over three single-token label logits at the answer position",
+  "label_token_ids": {
+    "A": 236776,
+    "B": 236799,
+    "C": 236780
+  },
+  "batch_size": 8,
+  "model": {
+    "name": "google/gemma-3-1b-it",
+    "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+    "local_path": "step1_LLM/Models/Gemma-3-1B-IT/weights",
+    "architecture_config_sha256": "3d8e7ec7914d4a54ad6f5c9eefcbad873ffa85149eed45352ee3bc5d7676ab30"
+  },
+  "adapter_files_sha256": {
+    "adapter_config.json": "3dfe47a6d1319f83a4a608d550bbc710eb00e06a2174b56a5d0223ca02405f09",
+    "adapter_model.safetensors": "873c4bb04be40b5b690155669acd9a991a87389c5c56259a11bd582b61a4196d"
+  },
+  "data_sha256": "fed270dd3f15e77df9f430e2a65b5d038f4d826e0b6f88d44d7b1ef76cb2b727",
+  "config_sha256": "bca60ae4ae583eada648940e553d880c823c25f624918d609c5c7134b3d0c4f9"
+}

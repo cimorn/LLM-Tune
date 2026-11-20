@@ -1,6 +1,6 @@
-"""步骤 3：用工具调用示范做 completion-only LoRA SFT。
+"""对工具调用示范或人类偏好标签做 completion-only LoRA SFT。
 
-系统提示、用户输入和 padding 的标签为 -100；只有 JSON 答案及 EOS 参与损失。
+系统提示、用户输入和 padding 的标签为 -100；只有答案及 EOS 参与损失。
 模型内部负责 causal shift，数据不能再手动 shift 一次。
 """
 from __future__ import annotations
@@ -150,14 +150,29 @@ class CompletionDataset(torch.utils.data.Dataset):
     def __init__(self, records: list[dict], tokenizer, max_length: int, config: dict | None = None):
         self.examples = []
         self.audit = []
+        preference = None
+        if (config or {}).get("dataset") == "human_preference":
+            from step1_LLM.judge_eval import PreferenceEncoder, swap_responses
+
+            preference = PreferenceEncoder(tokenizer, config)
+            if preference.max_length != max_length:
+                raise ValueError("偏好任务的训练与评测 token 上限必须一致")
+            task = dataset_task(config)
+            label_ids = dict(zip(task.LABELS, preference.label_ids))
+            if config.get("preference", {}).get("train_swap_augmentation", False):
+                records = records + [dict(swap_responses(row), id=f"{row['id']}:swap") for row in records]
         for row in records:
-            prompt = render_prompt(tokenizer, row, config)
-            answer = json.dumps(row["target"], ensure_ascii=False, separators=(",", ":"))
-            prompt_ids = tokenizer.encode(prompt, add_special_tokens=False)
-            full_ids = tokenizer.encode(prompt + answer + tokenizer.eos_token,
-                                        add_special_tokens=False)
-            if full_ids[:len(prompt_ids)] != prompt_ids:
-                raise ValueError(f"{row['id']}: prompt/answer 边界分词不一致，拒绝错误 mask")
+            if preference is not None:
+                prompt_ids, truncated = preference.encode_prompt(row)
+                full_ids = prompt_ids + [label_ids[task.format_target(row)], tokenizer.eos_token_id]
+            else:
+                prompt = render_prompt(tokenizer, row, config)
+                answer = json.dumps(row["target"], ensure_ascii=False, separators=(",", ":"))
+                prompt_ids = tokenizer.encode(prompt, add_special_tokens=False)
+                full_ids = tokenizer.encode(prompt + answer + tokenizer.eos_token,
+                                            add_special_tokens=False)
+                if full_ids[:len(prompt_ids)] != prompt_ids:
+                    raise ValueError(f"{row['id']}: prompt/answer 边界分词不一致，拒绝错误 mask")
             if len(full_ids) > max_length:
                 raise ValueError(f"{row['id']}: {len(full_ids)} tokens 超过 max_length={max_length}；提高上限")
             labels = [-100] * len(prompt_ids) + full_ids[len(prompt_ids):]
@@ -167,6 +182,8 @@ class CompletionDataset(torch.utils.data.Dataset):
             self.audit.append({"id": row["id"], "prompt_tokens": len(prompt_ids),
                                "completion_tokens": len(full_ids)-len(prompt_ids),
                                "total_tokens": len(full_ids)})
+            if preference is not None:
+                self.audit[-1]["truncated"] = truncated
 
     def __len__(self):
         return len(self.examples)
@@ -221,6 +238,9 @@ def run(args) -> dict:
         model.enable_input_require_grads()
         dataset = CompletionDataset(records, tokenizer, int(cfg["max_length"]), config)
         write_json(output / "token_mask_audit.json", dataset.audit)
+        if config.get("dataset") == "human_preference":
+            summary["encoded_training_rows"] = len(dataset)
+            summary["truncation_rate"] = sum(bool(row["truncated"]) for row in dataset.audit) / len(dataset)
         before = snapshot_trainable(model)
         bf16 = torch.cuda.is_bf16_supported()
         train_args = TrainingArguments(

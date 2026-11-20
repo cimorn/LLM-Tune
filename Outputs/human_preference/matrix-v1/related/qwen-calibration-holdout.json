@@ -1,0 +1,365 @@
+{
+  "holdout_count": 2048,
+  "holdout_question_groups": 2036,
+  "class_counts": {
+    "A": 716,
+    "B": 707,
+    "C": 625
+  },
+  "holdout_inputs_sha256": "0d718e245eb0444e9d09a440963c26ab1af933f7084a0f28c097a418e4783a34",
+  "holdout_labels_sha256": "d7e8fa3040de927b0019db12dba4f3fc6aff2e82f5b597a0867ac37705ff020a",
+  "calibration": {
+    "fit_scope": "original completed validation predictions only",
+    "validation_data_sha256": "199a010859149fb9986ab08ec2f042bd199ac137bf9d24c4be1a3ce0ab0f1cb0",
+    "validation_count": 512,
+    "stages": {
+      "SFT": {
+        "temperature": 0.8838252794442583,
+        "validation_uncalibrated_log_loss": 1.0185098558375982,
+        "validation_calibrated_log_loss": 1.0178654909193021,
+        "adapter_files_sha256": {
+          "adapter_config.json": "02b09e446c1c7eaa0154fcd13feac531d9e79007d54c6205a12a33eb5a4d8e3a",
+          "adapter_model.safetensors": "40e5b2aa1a2f048e3ce0726e65fc08590cd2748cd56fcbea95fe81b60d9a599e"
+        },
+        "validation_predictions_sha256": "ba5f9886b1f1d17b55f202b73aad8ae579162d93cb592baa86a5cd92575e52c2",
+        "protocol": {
+          "model": {
+            "name": "Qwen/Qwen3-0.6B",
+            "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+            "local_path": "step1_LLM/Models/Qwen3-0.6B/weights",
+            "architecture_config_sha256": "5c994624f3d4f5806b7e0ce73e3f54b8170504e97cd15bc3ea0c021c4ae2c3bd"
+          },
+          "max_length": 512,
+          "batch_size": 8,
+          "label_token_ids": {
+            "A": 32,
+            "B": 33,
+            "C": 34
+          },
+          "probability_protocol": "softmax over three single-token label logits at the answer position"
+        }
+      },
+      "GRPO": {
+        "temperature": 3.562962601529174,
+        "validation_uncalibrated_log_loss": 1.2692447257439503,
+        "validation_calibrated_log_loss": 1.0067348744035478,
+        "adapter_files_sha256": {
+          "adapter_config.json": "a98d5b17dca08e8a647f7ee6392236f4b0b565d07a8ca1b4ad07945f6b3fc15f",
+          "adapter_model.safetensors": "f49acbf574024f94dd5bb4f3296f4962d72b5f1a2ca4d2e027bfd11141706c1c"
+        },
+        "validation_predictions_sha256": "ee0f6aa80f1b43aea4972483d7c7126272198e16fbdd3fc8f4e0545f18426564",
+        "protocol": {
+          "model": {
+            "name": "Qwen/Qwen3-0.6B",
+            "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+            "local_path": "step1_LLM/Models/Qwen3-0.6B/weights",
+            "architecture_config_sha256": "5c994624f3d4f5806b7e0ce73e3f54b8170504e97cd15bc3ea0c021c4ae2c3bd"
+          },
+          "max_length": 512,
+          "batch_size": 8,
+          "label_token_ids": {
+            "A": 32,
+            "B": 33,
+            "C": 34
+          },
+          "probability_protocol": "softmax over three single-token label logits at the answer position"
+        }
+      },
+      "PPO": {
+        "temperature": 3.9891061896704154,
+        "validation_uncalibrated_log_loss": 1.3629218532784848,
+        "validation_calibrated_log_loss": 1.0071510169002247,
+        "adapter_files_sha256": {
+          "adapter_config.json": "02b09e446c1c7eaa0154fcd13feac531d9e79007d54c6205a12a33eb5a4d8e3a",
+          "adapter_model.safetensors": "6528a9f5d47bb8fee47df8819e498efee4ffd418a675a9cd7c3920c30e59b6fd"
+        },
+        "validation_predictions_sha256": "7d0621ccb49c7e99b4dde898040b8b8e08428212a6fdedc65b5b3ffa91be0188",
+        "protocol": {
+          "model": {
+            "name": "Qwen/Qwen3-0.6B",
+            "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+            "local_path": "step1_LLM/Models/Qwen3-0.6B/weights",
+            "architecture_config_sha256": "5c994624f3d4f5806b7e0ce73e3f54b8170504e97cd15bc3ea0c021c4ae2c3bd"
+          },
+          "max_length": 512,
+          "batch_size": 8,
+          "label_token_ids": {
+            "A": 32,
+            "B": 33,
+            "C": 34
+          },
+          "probability_protocol": "softmax over three single-token label logits at the answer position"
+        }
+      }
+    }
+  },
+  "stages": {
+    "SFT": {
+      "uncalibrated": {
+        "log_loss": 1.0471251147874105,
+        "accuracy": 0.4462890625,
+        "argmax_counts": {
+          "A": 925,
+          "B": 1035,
+          "C": 88
+        },
+        "tie": {
+          "gold_count": 625,
+          "predicted_count": 88,
+          "correct_count": 58,
+          "recall": 0.0928,
+          "precision": 0.6590909090909091,
+          "true_tie_mean_probability": 0.31632596609294417,
+          "non_tie_mean_probability": 0.2804447653425566,
+          "true_tie_log_loss": 1.2007174372365088,
+          "true_tie_count_below_1pct": 0
+        }
+      },
+      "calibrated": {
+        "log_loss": 1.0491464502894856,
+        "accuracy": 0.4462890625,
+        "argmax_counts": {
+          "A": 925,
+          "B": 1035,
+          "C": 88
+        },
+        "tie": {
+          "gold_count": 625,
+          "predicted_count": 88,
+          "correct_count": 58,
+          "recall": 0.0928,
+          "precision": 0.6590909090909091,
+          "true_tie_mean_probability": 0.3138936179193539,
+          "non_tie_mean_probability": 0.2744917050183638,
+          "true_tie_log_loss": 1.2212123323412485,
+          "true_tie_count_below_1pct": 1
+        }
+      },
+      "predictions_sha256": "ebf9abe2044c95087b889246b3a8d43b3d09879635f70d68b9c869f611211215",
+      "truncation_rate": 0.609375
+    },
+    "GRPO": {
+      "uncalibrated": {
+        "log_loss": 1.372269918548894,
+        "accuracy": 0.44580078125,
+        "argmax_counts": {
+          "A": 671,
+          "B": 1163,
+          "C": 214
+        },
+        "tie": {
+          "gold_count": 625,
+          "predicted_count": 214,
+          "correct_count": 114,
+          "recall": 0.1824,
+          "precision": 0.5327102803738317,
+          "true_tie_mean_probability": 0.30017193871743514,
+          "non_tie_mean_probability": 0.20005304864260368,
+          "true_tie_log_loss": 1.7294914971961683,
+          "true_tie_count_below_1pct": 32
+        }
+      },
+      "calibrated": {
+        "log_loss": 1.0427174539902127,
+        "accuracy": 0.44580078125,
+        "argmax_counts": {
+          "A": 671,
+          "B": 1163,
+          "C": 214
+        },
+        "tie": {
+          "gold_count": 625,
+          "predicted_count": 214,
+          "correct_count": 114,
+          "recall": 0.1824,
+          "precision": 0.5327102803738317,
+          "true_tie_mean_probability": 0.33418891193720807,
+          "non_tie_mean_probability": 0.2858641638118484,
+          "true_tie_log_loss": 1.1526741595619736,
+          "true_tie_count_below_1pct": 0
+        }
+      },
+      "predictions_sha256": "21f2e49650aa5f8af474989e3ae167a9db1ef44707bf114f1a9100e2566cc8e3",
+      "truncation_rate": 0.609375
+    },
+    "PPO": {
+      "uncalibrated": {
+        "log_loss": 1.4734281165518093,
+        "accuracy": 0.4482421875,
+        "argmax_counts": {
+          "A": 807,
+          "B": 1120,
+          "C": 121
+        },
+        "tie": {
+          "gold_count": 625,
+          "predicted_count": 121,
+          "correct_count": 74,
+          "recall": 0.1184,
+          "precision": 0.6115702479338843,
+          "true_tie_mean_probability": 0.22877761980773648,
+          "non_tie_mean_probability": 0.1387531527152002,
+          "true_tie_log_loss": 2.2687617006657534,
+          "true_tie_count_below_1pct": 70
+        }
+      },
+      "calibrated": {
+        "log_loss": 1.045985282786219,
+        "accuracy": 0.4482421875,
+        "argmax_counts": {
+          "A": 807,
+          "B": 1120,
+          "C": 121
+        },
+        "tie": {
+          "gold_count": 625,
+          "predicted_count": 121,
+          "correct_count": 74,
+          "recall": 0.1184,
+          "precision": 0.6115702479338843,
+          "true_tie_mean_probability": 0.2981049769078402,
+          "non_tie_mean_probability": 0.2565201805370179,
+          "true_tie_log_loss": 1.266096710484158,
+          "true_tie_count_below_1pct": 0
+        }
+      },
+      "predictions_sha256": "95100074d187ebf4c999e93ab10417981d6eb408f66a7fd9342535f7dadeb208",
+      "truncation_rate": 0.609375
+    }
+  },
+  "differences": {
+    "SFT_calibrated_minus_raw": {
+      "delta": 0.002021335502075193,
+      "paired_grouped_bootstrap_95pct": [
+        6.418386745899863e-05,
+        0.004083496133206542
+      ]
+    },
+    "GRPO_calibrated_minus_raw": {
+      "delta": -0.3295524645586816,
+      "paired_grouped_bootstrap_95pct": [
+        -0.3755522061692298,
+        -0.28441719775773494
+      ]
+    },
+    "PPO_calibrated_minus_raw": {
+      "delta": -0.42744283376559034,
+      "paired_grouped_bootstrap_95pct": [
+        -0.48220008243536056,
+        -0.37415656330010044
+      ]
+    },
+    "GRPO_raw_minus_SFT_raw": {
+      "delta": 0.3251448037614836,
+      "paired_grouped_bootstrap_95pct": [
+        0.2764821669248959,
+        0.37526176073259615
+      ]
+    },
+    "GRPO_calibrated_minus_SFT_calibrated": {
+      "delta": -0.006428996299273203,
+      "paired_grouped_bootstrap_95pct": [
+        -0.015301085431719492,
+        0.002272945765650675
+      ]
+    },
+    "PPO_raw_minus_SFT_raw": {
+      "delta": 0.4263030017643986,
+      "paired_grouped_bootstrap_95pct": [
+        0.36919147649482864,
+        0.4849457907161161
+      ]
+    },
+    "PPO_calibrated_minus_SFT_calibrated": {
+      "delta": -0.0031611675032668807,
+      "paired_grouped_bootstrap_95pct": [
+        -0.012073486887069974,
+        0.005371671989004992
+      ]
+    },
+    "GRPO_calibrated_minus_SFT_raw": {
+      "delta": -0.00440766079719801,
+      "paired_grouped_bootstrap_95pct": [
+        -0.012814855905025133,
+        0.00395533102308613
+      ]
+    },
+    "PPO_calibrated_minus_SFT_raw": {
+      "delta": -0.001139832001191688,
+      "paired_grouped_bootstrap_95pct": [
+        -0.009618757708079632,
+        0.007281728083250155
+      ]
+    }
+  },
+  "true_tie_differences": {
+    "SFT_calibrated_minus_raw": {
+      "delta": 0.020494895104739452,
+      "paired_grouped_bootstrap_95pct": [
+        0.016279449275203285,
+        0.025243281401305603
+      ]
+    },
+    "GRPO_calibrated_minus_raw": {
+      "delta": -0.5768173376341947,
+      "paired_grouped_bootstrap_95pct": [
+        -0.6642470397142973,
+        -0.4943543246100346
+      ]
+    },
+    "PPO_calibrated_minus_raw": {
+      "delta": -1.0026649901815956,
+      "paired_grouped_bootstrap_95pct": [
+        -1.1141836899841164,
+        -0.8946564440483469
+      ]
+    },
+    "GRPO_raw_minus_SFT_raw": {
+      "delta": 0.5287740599596594,
+      "paired_grouped_bootstrap_95pct": [
+        0.4431146283017784,
+        0.6180801635863049
+      ]
+    },
+    "GRPO_calibrated_minus_SFT_calibrated": {
+      "delta": -0.06853817277927471,
+      "paired_grouped_bootstrap_95pct": [
+        -0.08803233019177614,
+        -0.050635369800380234
+      ]
+    },
+    "PPO_raw_minus_SFT_raw": {
+      "delta": 1.0680442634292449,
+      "paired_grouped_bootstrap_95pct": [
+        0.9538743858314356,
+        1.18600867635745
+      ]
+    },
+    "PPO_calibrated_minus_SFT_calibrated": {
+      "delta": 0.044884378142909784,
+      "paired_grouped_bootstrap_95pct": [
+        0.02309351541189862,
+        0.06466815261219505
+      ]
+    },
+    "GRPO_calibrated_minus_SFT_raw": {
+      "delta": -0.04804327767453526,
+      "paired_grouped_bootstrap_95pct": [
+        -0.06469970117672265,
+        -0.032551411928823215
+      ]
+    },
+    "PPO_calibrated_minus_SFT_raw": {
+      "delta": 0.06537927324764922,
+      "paired_grouped_bootstrap_95pct": [
+        0.046601429116902425,
+        0.0831455797333181
+      ]
+    }
+  },
+  "bootstrap": {
+    "resamples": 10000,
+    "seed": 42,
+    "group": "normalized question"
+  }
+}

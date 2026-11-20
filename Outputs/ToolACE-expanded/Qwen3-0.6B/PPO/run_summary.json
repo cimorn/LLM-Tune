@@ -1,0 +1,153 @@
+{
+  "stage": "ppo",
+  "status": "completed",
+  "config": {
+    "dataset": "ToolACE",
+    "model": {
+      "name": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "local_path": "step1_LLM/Models/Qwen3-0.6B/weights",
+      "attn_implementation": "sdpa",
+      "prompt_mode": "system",
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    },
+    "selected_model": "Qwen3-0.6B",
+    "seed": 42,
+    "data_sha256": {
+      "train": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+      "val": "ea0db4441165d1382db3d65f83d769c3afc9bb4f930dc65f3d42fe80dccb4732",
+      "test_final": "f211e48230cc7b939a8174c99cf50696b95fa755a882434c5b978edc960b280f"
+    },
+    "eval": {
+      "max_new_tokens": 128
+    },
+    "evaluation": {
+      "split": "val",
+      "seed": 42,
+      "limit": null,
+      "batch_size": 16
+    },
+    "experiment": "ToolACE-expanded-v1",
+    "method": "PPO",
+    "source_config": "step3_Tune/RL/PPO/Configs/Qwen3-0.6B/ToolACE.json",
+    "ppo": {
+      "max_steps": 48,
+      "learning_rate": 3e-06,
+      "value_learning_rate": 0.001,
+      "batch_size": 2,
+      "prompts_per_rollout": 2,
+      "num_generations": 4,
+      "max_prompt_length": 768,
+      "max_completion_length": 128,
+      "ppo_epochs": 2,
+      "gamma": 1,
+      "gae_lambda": 0.95,
+      "cliprange": 0.2,
+      "value_cliprange": 0.2,
+      "value_coef": 0.5,
+      "max_grad_norm": 1,
+      "save_at_steps": []
+    },
+    "sft_adapter": "Outputs/ToolACE-expanded/Qwen3-0.6B/SFT/adapter",
+    "sft_adapter_sha256": "55479ca1562e3695676e681f259edfb6d975dd6d9bc6bcb0eb087a521893744f"
+  },
+  "actual_ppo": {
+    "max_steps": 48,
+    "learning_rate": 3e-06,
+    "value_learning_rate": 0.001,
+    "batch_size": 2,
+    "prompts_per_rollout": 2,
+    "num_generations": 4,
+    "max_prompt_length": 768,
+    "max_completion_length": 128,
+    "ppo_epochs": 2,
+    "gamma": 1,
+    "gae_lambda": 0.95,
+    "cliprange": 0.2,
+    "value_cliprange": 0.2,
+    "value_coef": 0.5,
+    "max_grad_norm": 1,
+    "save_at_steps": []
+  },
+  "data_path": "Datasets/ToolACE/train.jsonl",
+  "data_sha256": "afe605cf54429bd8aca4fd333dbc57fec8a5c82f85e1bde568cb009f1fd0ad39",
+  "training_rows": 694,
+  "sft_adapter": "Outputs/ToolACE-expanded/Qwen3-0.6B/SFT/adapter",
+  "output": "Outputs/ToolACE-expanded/Qwen3-0.6B/PPO/adapter",
+  "loss_protocol": "PPO-Clip with masked GAE and a learned value head; normalized over valid completion tokens",
+  "value_protocol": "Linear head on detached actor hidden states; initial weights zero; clipped squared error",
+  "reward_protocol": "Dataset verifier supplies a strict 0/1 terminal reward; EOS or length limit ends the episode",
+  "reference_kl": false,
+  "initial_state_matches_sft": true,
+  "sft_source": {
+    "path": "Outputs/ToolACE-expanded/Qwen3-0.6B/SFT/adapter",
+    "stage": "sft",
+    "optimizer_steps": 174,
+    "expected_adapter_sha256": "062dbf3fc355c040020873809e7148380b3b7ee913cf245db79bb70024a31361"
+  },
+  "sampling": {
+    "use_model_defaults": false,
+    "do_sample": true,
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "repetition_penalty": 1.0,
+    "max_new_tokens": 128,
+    "num_generations": 4,
+    "prompts_per_rollout": 2
+  },
+  "rollout_steps": 48,
+  "optimizer_steps": 96,
+  "training_seconds": 107.11988420004491,
+  "peak_allocated_gib": 4.805332183837891,
+  "peak_reserved_gib": 6.064453125,
+  "bf16": true,
+  "phase_timing": {
+    "generation_seconds": 56.44697139994241,
+    "reward_and_log_seconds": 0.04489260003902018,
+    "old_policy_seconds": 8.129662199527957,
+    "optimization_seconds": 42.118032599799335
+  },
+  "update": {
+    "finite_parameters": true,
+    "changed_tensors": 112,
+    "total_trainable_tensors": 112,
+    "trainable_parameters": 1146880,
+    "parameter_delta_l2": 0.047921053757751166,
+    "before_sha256": "062dbf3fc355c040020873809e7148380b3b7ee913cf245db79bb70024a31361",
+    "after_sha256": "77af189fd163644537fc7877fcfb4a06c20f9d53ef8748e64cef81472053edea",
+    "nonzero_update": true
+  },
+  "value_update": {
+    "finite_parameters": true,
+    "changed_tensors": 2,
+    "total_trainable_tensors": 2,
+    "trainable_parameters": 1025,
+    "parameter_delta_l2": 0.1329355992570832,
+    "before_sha256": "31dd1e4d31e561928560598c7138d9ec83a26889f1869ed9f661a5cbc231b6fa",
+    "after_sha256": "5d26838851401bc437ccb8393a6af9e689d2cc2b3ed125d688c54a2de7a0f5a6",
+    "nonzero_update": true
+  },
+  "reward": {
+    "generation_calls": 48,
+    "sampled_completions": 384,
+    "sampled_completion_tokens": 8361,
+    "token_observed_samples": 384,
+    "groups": 96,
+    "zero_variance_groups": 65,
+    "zero_variance_fraction": 0.6770833333333334,
+    "mean_sample_reward": 0.7864583333333334,
+    "error_counts": {
+      "ok": 302,
+      "wrong_arguments": 69,
+      "invalid_json": 6,
+      "invalid_schema": 1,
+      "wrong_tool": 6
+    },
+    "terminated_samples": 384,
+    "truncated_at_limit": 0,
+    "truncated_fraction": 0.0
+  }
+}

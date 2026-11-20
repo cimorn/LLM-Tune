@@ -1,6 +1,25 @@
 .venv/
 .cache/
-Outputs/
+Outputs/*
+# Keep the curated ToolACE archive visible in Git.
+!Outputs/ToolACE-expanded/
+Outputs/ToolACE-expanded/**/*
+!Outputs/ToolACE-expanded/**/
+!Outputs/ToolACE-expanded/README*.md
+!Outputs/ToolACE-expanded/report.html
+!Outputs/ToolACE-expanded/*/Comparison/figures/*.png
+!Outputs/ToolACE-expanded/*/*/run_summary.json
+!Outputs/ToolACE-expanded/*/*/eval*/metrics.json
+!Outputs/ToolACE-expanded/*/*/eval*/predictions.jsonl
+# Curated three-model comparison reports.
+!Outputs/calculator/
+Outputs/calculator/*
+!Outputs/calculator/matrix-v1/
+!Outputs/human_preference/
+Outputs/human_preference/*
+!Outputs/human_preference/matrix-v1/
+# Keep Kaggle example data local.
+Datasets/human_preference/*.jsonl
 step1_LLM/Models/*/weights/
 Datasets/*/raw/
 __pycache__/
