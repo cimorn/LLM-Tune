@@ -6,61 +6,6 @@
 
 <br>
 
-## 文件目录
-
-```text
-LLM-Tune/
-├─ README.md
-├─ README.en.md
-├─ main.py                 # 运行入口
-├─ compare.py              # 生成结果汇总与图表
-├─ requirements.txt        # Python 依赖
-├─ Datasets/               # 数据与判分规则
-│  ├─ calculator/
-│  ├─ ToolACE/
-│  └─ human_preference/
-├─ step1_LLM/              # 模型准备与评估
-│  ├─ Models/
-│  ├─ prepare.py
-│  ├─ evaluate.py
-│  └─ judge_eval.py
-├─ step2_SFT/              # 监督微调
-│  ├─ Configs/
-│  └─ train.py
-├─ step3_Tune/             # 微调算法
-│  └─ RL/
-│     ├─ GRPO/
-│     │  ├─ Configs/
-│     │  ├─ run/
-│     │  └─ train.py
-│     ├─ PPO/
-│     │  ├─ Configs/
-│     │  ├─ run/
-│     │  └─ train.py
-│     └─ DPO/
-│        ├─ Configs/
-│        ├─ run/
-│        │  ├─ core.py
-│        │  ├─ pairs.py
-│        │  └─ scoring.py
-│        └─ train.py
-└─ Outputs/                # 按数据集和模型保存结果
-   ├─ calculator/
-   │  ├─ README.md
-   │  ├─ README.en.md
-   │  ├─ DeepSeek-R1-1.5B/
-   │  ├─ Qwen3-0.6B/
-   │  └─ matrix-v1/
-   ├─ ToolACE-expanded/
-   │  ├─ README.md
-   │  ├─ README.en.md
-   │  └─ report.html
-   └─ human_preference/
-      └─ matrix-v1/
-```
-
-<br>
-
 ## 实验入口
 
 ### 模型
@@ -78,7 +23,7 @@ LLM-Tune/
 | 数据集 | 训练任务 | 实验结果 | 完成日期 | 来源 |
 | :---: | :--- | :--- | :---: | :--- |
 | [Calculator](Datasets/calculator/manifest.json) | 为算式和表格题生成计算器调用。<br>训练 [256 题](Datasets/calculator/train.jsonl) · 验证 [64 题](Datasets/calculator/val.jsonl) · 最终测试 [256 题](Datasets/calculator/test_final.jsonl) | [中文](Outputs/calculator/matrix-v1/README.md) · [English](Outputs/calculator/matrix-v1/README.en.md) | 261115 | LLM-Tune 自建 |
-| [人类偏好](Datasets/human_preference/manifest.json) | 预测人工更偏好回答 A、回答 B，还是平局。<br>训练 [1,536 条](Datasets/human_preference/train.jsonl) · 验证 [256 条](Datasets/human_preference/val.jsonl) | [中文](Outputs/human_preference/matrix-v1/README.md) · [English](Outputs/human_preference/matrix-v1/README.en.md) | 261117 | [Kaggle LLM Classification Finetuning](https://www.kaggle.com/competitions/llm-classification-finetuning) |
+| [人类偏好](Datasets/human_preference/manifest.json) | 预测人工更偏好回答 A、回答 B，还是平局。<br>训练 1,536 条 · 验证 256 条 | [中文](Outputs/human_preference/matrix-v1/README.md) · [English](Outputs/human_preference/matrix-v1/README.en.md) | 261117 | [Kaggle LLM Classification Finetuning](https://www.kaggle.com/competitions/llm-classification-finetuning) |
 | [ToolACE](Datasets/ToolACE/manifest.json) | 选择工具并填写参数。<br>训练 [694 题](Datasets/ToolACE/train.jsonl) · 验证 [100 题](Datasets/ToolACE/val.jsonl) · 最终测试 [250 题](Datasets/ToolACE/test_final.jsonl) | [中文](Outputs/ToolACE-expanded/README.md) · [English](Outputs/ToolACE-expanded/README.en.md) | 261118 | [Team-ACE/ToolACE](https://huggingface.co/datasets/Team-ACE/ToolACE) |
 
 <br>
@@ -90,7 +35,7 @@ LLM-Tune/
 | [SFT](step2_SFT/train.py) | 监督学习 | [Configs](step2_SFT/Configs/) |
 | [GRPO](step3_Tune/RL/GRPO/train.py) | 强化学习 | [Configs](step3_Tune/RL/GRPO/Configs/) |
 | [PPO](step3_Tune/RL/PPO/train.py) | 强化学习 | [Configs](step3_Tune/RL/PPO/Configs/) |
-| [DPO](step3_Tune/RL/DPO/train.py) | 强化学习 | [Configs](step3_Tune/RL/DPO/Configs/) |
+| [DPO](step3_Tune/RL/DPO/train.py) | 离线偏好优化 | [Configs](step3_Tune/RL/DPO/Configs/) |
 
 <br>
 
@@ -122,5 +67,11 @@ ToolACE 使用已归档的 694/100/250 划分。用 `--model` 选择模型，结
 
 - `step1_LLM/Models/<模型>/model.json` 保存模型来源、版本和加载参数。
 - `step2_SFT/Configs/<模型>/<数据集>.json` 保存 SFT 参数。
-- `step3_Tune/RL/<算法>/Configs/<模型>/<数据集>.json` 保存各 RL 算法的参数。
+- `step3_Tune/RL/<算法>/Configs/<模型>/<数据集>.json` 保存各算法的参数。
 - `Outputs/<数据集>/<模型>/` 保存各阶段的评估、日志、权重和图表，`Outputs/<数据集>/README.md` 汇总该数据集的实验结果。
+
+<br>
+
+## 许可证
+
+第三方模型和数据集遵循各自的许可条款。项目自有代码采用 [MIT 许可证](LICENSE)。
